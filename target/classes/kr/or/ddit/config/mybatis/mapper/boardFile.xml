@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardFile">
+
+	<!-- 해당 게시글 파일 모두 조회 -->
+	<select id="getAllFiles" resultType="fileVo">
+		SELECT *
+		FROM BOARD_FILE
+		WHERE W_ID=#{w_id}
+	</select>
+	
+	<!-- 파일 id로 조회 -->
+   <select id="getFileById"  parameterType="int"  resultType="fileVo">
+    SELECT * FROM BOARD_FILE
+    WHERE F_ID=#{f_id}
+  	</select>
+	
+
+	<!--해당 게시글의 게시글 개수 조회 -->
+	<select id="countFile" parameterType="int" resultType="fileVo">
+		SELECT
+		COUNT(*)
+		FROM BOARD_FILE
+		WHERE W_ID=#{w_id}
+	</select>
+
+	<!-- 파일 추가 -->
+	<insert id="insertFile" parameterType="fileVo">
+		INSERT INTO BOARD_FILE (F_ID,W_ID,STD_ID,F_FILE,F_PATH,F_NAME)
+		VALUES (board_f_seq.NEXTVAL,#{w_id}, #{std_id},#{f_file},#{f_path},#{f_name})
+	</insert>
+
+	<!-- 파일 수정 -->
+	<update id="updateFile" parameterType="fileVo">
+		UPDATE BOARD_FILE SET b_name= #{b_name },b_useny = #{b_useny}
+		WHERE F_ID=#{f_id}
+	</update>
+
+</mapper>

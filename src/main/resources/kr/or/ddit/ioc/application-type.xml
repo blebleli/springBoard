@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!-- 	<bean id="iocVo" class="kr.or.ddit.ioc.type.IocVo"> -->
+		<!-- name(String), regDt(java.Util.Date --> 
+<!-- 		<property name="name" value="brown" /> -->
+<!-- 		<property name="regDt" value="07-30-2018" />  -->
+<!-- 	</bean> -->
+
+	<bean id="iocFormattingVo" class="kr.or.ddit.ioc.type.IocFormattingVo">
+		<property name="name" value="brown"/>
+		<property name="regDt" value="2018-07-30"/>
+		<property name="modDt" value="07-30-2018"/>
+		<property name="amount" value="9,999,123"/>
+	</bean>
+
+
+<!-- dateFormat / boolean --> 
+
+<!-- <bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"> -->	
+<!--
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="yyyy-MM-dd"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="true" />
+	</bean>
+	
+	<bean id="customEditorConfiguer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date" value-ref="dateEditor"></entry>
+			</map>
+		</property>
+	
+	</bean>
+  -->
+
+
+
+<!-- 
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean id="dateStringConverter" class="kr.or.ddit.ioc.type.DateStringConverter" > -->
+				
+					<!-- 생성자를 이용한 방식 <constructor-arg value="MM-dd-yyyy"></constructor-arg>  -->
+					
+<!--				<property name="datePattern" value="MM-dd-yyyy" /> 
+				</bean>
+			</set>
+		</property>
+	</bean>
+  -->		
+
+
+<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+
+</bean>
+
+</beans>

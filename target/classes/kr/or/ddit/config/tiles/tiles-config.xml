@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="basicLayout" template="/WEB-INF/views/tiles/basicLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/views/tiles/top.jsp"/>
+		<put-attribute name="left" value="/WEB-INF/views/tiles/left.jsp"/>
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	
+	
+	<definition name="main" extends="basicLayout">
+		<put-attribute name="content" value="/WEB-INF/views/tilesMain.jsp"/>	
+	</definition>
+
+	<definition name="studentList" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/student/tilesList.jsp"/>	
+	</definition>
+	
+	<definition name="studentDetail" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/student/tilesDetail.jsp"/>	
+	</definition>
+
+	<definition name="boardList" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/board/boardList.jsp"/>	
+	</definition>
+	
+	<definition name="writeList" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/write/writeList.jsp"/>	
+	</definition>
+
+</tiles-definitions>
+
+
+
+<!-- 
+메서드 만들기
+kr.or.ddit.mvc.web.tilesController
+
+localhost:8280/tiles/main
+
+	public Stirng tilesMain(){
+	return ""; //tiles definition name
+
+뷰resolver 가 찾고 그다음 tiles 가 definitions 이 찾는다 - 그다음이 jsp로 응답이 가게됨
+
+ -->

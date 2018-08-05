@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- spring 에서 관리할 bean 을 선언(등록) 하고
+		bean을 만드는 방법을 관리한다.
+		
+		IocService 객체 :  IocDao가 설정된 객체
+		(IocService 내부에서 IocDao를 별도로 선언하지 않는)
+		
+		IocServiceInf  iocService = new IocServide();
+	 	IocDaoInf iocDao = new IocDao();
+	 	
+	 	kr.orddir.ioc.dao interface, class
+	 	kr.orddir.ioc.service interface, class
+	 -->
+	<!--<bean id="iocDao" class="kr.or.ddit.ioc.dao.IocDao"/>  -->	
+	
+	
+	<!-- 생성자를 통한 주입 -->
+	<bean id="iocService" class="kr.or.ddit.ioc.service.IocService">
+		<constructor-arg ref="iocDao"/>
+	</bean>
+	
+	<!-- setter를 통한 주입 -->
+	<bean id="iocSetterService" class="kr.or.ddit.ioc.service.IocService">
+		<property name="iocDao" ref="iocDao"/>
+	</bean>
+	
+
+	<!-- desigh pattern - singlton :  jvm 에서 특정 클래스의 객체를 하나만 생성. 같은 객체
+	 spring ioc - singleton : 스프링 beanㄷ id당 하나의 객체를 생성-->
+	<bean id="iocDao" class="kr.or.ddit.ioc.dao.IocDao" scope="singleton"/>
+	<bean id="iocDao2" class="kr.or.ddit.ioc.dao.IocDao" scope="singleton"/>
+
+
+	<!-- prototype test용 스프링 빈
+		 prototype spring bean은 DL을 할때마다 새로운 빈으로 생성하여 리턴한다.
+
+	 -->
+	<bean id="iocPrototypeDao" class="kr.or.ddit.ioc.dao.IocDao" scope="prototype"/>
+	
+	
+	<!-- singleton scope 스프링 빈에 prototype scope 스프링 빈을 주입하면
+	주입받은 빈의 상태는? -->
+	<bean id="iocSingletonService" class="kr.or.ddit.ioc.service.IocService" scope="singleton">
+		<property name="iocDao" ref="iocPrototypeDao"></property>
+	</bean>
+	
+	
+</beans>

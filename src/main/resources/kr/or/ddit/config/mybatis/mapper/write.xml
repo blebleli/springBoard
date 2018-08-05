@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+  [<!ENTITY nbsp "&#160;">]>
+ 
+<mapper namespace="write">
+
+	<!-- 게시글 생성 -->
+	<insert id="insertWrite" parameterType="writeVo">
+
+		INSERT INTO BOARD_W (W_ID,W_PARENT,STD_ID,B_ID
+				,W_TITLE,W_CONTENT,W_REGDT
+				,W_DELNY,W_VIEW,W_FILENUM)
+
+		VALUES ( board_w_seq.NEXTVAL,#{w_parent},#{std_id},#{b_id},
+				#{w_title},#{w_content},#{w_regdt},
+				'N',0,0)
+	</insert>
+
+
+	<!-- 게시글 업데이트 -->
+	<update id="updateWrite" parameterType="writeVo">
+		UPDATE BOARD_W SET W_TITLE = #{w_title }
+						 ,W_CONTENT = #{w_content}
+						 ,W_DELNY = #{w_delny}
+		WHERE W_ID=#{w_id}
+	</update>
+	
+	
+	<!-- 삭제 업데이트 -->
+	<update id="deleteWrite" parameterType="writeVo">
+		UPDATE BOARD_W SET W_DELNY = #{w_delny}
+		WHERE W_ID=#{w_id}
+	</update>
+	
+	
+	<!-- 파일개수 업데이트 -->
+	<update id="updateWriteFile" parameterType="writeVo">
+		UPDATE BOARD_W SET W_FILENUM = #{w_filenum}
+		WHERE W_ID=#{w_id}
+	</update>
+	
+
+	<!--해당 게시판의 게시글 모두 조회 -->
+	<select id="getAllWrites" parameterType="int"
+		resultType="writeVo">
+		SELECT * FROM BOARD_W
+		WHERE B_ID=#{b_id}
+	</select>
+
+
+	<!-- 게시글 id로 조회 -->
+	<select id="getWriteById" parameterType="int"
+		resultType="writeVo">
+		SELECT * FROM BOARD_W
+		WHERE W_ID=#{w_id}
+	</select>
+
+
+	<!-- 게시글 vo로 조회 -->
+	<select id="getWriteByVo" parameterType="writeVo"
+		resultType="writeVo">
+		SELECT * FROM BOARD_W
+		WHERE W_ID=#{w_id}
+	</select>
+
+
+	<!-- 게시판 형태로 글조회 -->
+	<select id="getWriteView" parameterType="map" resultType="writeVo">
+	select * from (
+		select rownum as numview, data.*
+				from (select level,
+                  w_id,
+                  std_id,
+                  w_regdt,
+                  w_parent,
+                  w_delny,
+                  case 
+                  	   when w_delny='Y' then '삭제된 게시글 입니다.'
+                  	   when w_parent>0 then lpad(' ',level*4,'&nbsp;')||'ㄴ'|| board_w.w_title
+                       when w_parent=0 then board_w.w_title
+                       else '없음'
+                  end as titleview
+              from board_w
+              where b_id=#{b_id}
+              start with w_parent=0
+              connect by prior w_id=w_parent
+              order siblings by w_id desc
+    	) data	
+	) 
+	  where numview BETWEEN ((#{page}-1) * #{pageSize} +1) AND #{page} * #{pageSize}
+	  
+	</select>
+
+
+	<select id="getWriteTotCnt"  resultType="int">
+		 SELECT COUNT(*) 
+		 FROM BOARD_W
+		 WHERE B_ID=#{b_id}
+	</select>
+	
+
+</mapper>  

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- db.properties 파일 읽기 -->
+	<context:property-placeholder location="classpath:kr/or/ddit/ioc/db.properties"/>
+
+	<!-- jdbcinfo 스프링 빈 -->
+	<bean id="jdbcInfo" class="kr.or.ddit.ioc.placeholder.JdbcInfo">
+		
+		<!--  DI -->
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="pc06" />
+		<property name="passward" value="java" />
+
+	</bean>
+
+</beans>

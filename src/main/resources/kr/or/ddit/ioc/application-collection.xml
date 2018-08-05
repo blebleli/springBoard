@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="collectionBean" class="kr.or.ddit.ioc.collection.CollectionBean">
+		<property name="lists">
+			<list>
+				<value>brown</value>
+				<value>cony</value>
+				<value>sally</value>
+			</list>
+		</property>
+		
+		<property name="sets">
+			<set>
+				<value>cony</value>
+				<value>sally</value>
+				<value>brown</value>
+			</set>
+		</property>
+		
+		<property name="map">
+			<map>
+				<entry key="ranger1" value="sally"/>
+				<entry key="ranger2" value="brown"/>
+				<entry key="ranger3" value="cony"/>
+			</map>
+		</property>
+		
+		<property name="pros">
+			<props>
+				<prop key="ranger1">brown</prop>
+				<prop key="ranger2">cony</prop>
+				<prop key="ranger3">sally</prop>
+			</props>
+		</property>
+		
+	</bean>
+
+</beans>

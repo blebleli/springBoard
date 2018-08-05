@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+
+  <!-- 댓글 모두 조회 -->
+  <select id="getAllComments" resultType="cmtVo">
+    SELECT * FROM BOARD_CMT
+    WHERE W_ID=#{w_id}
+    ORDER BY C_REGDT DESC
+  </select>
+  
+  <!-- 해당 게시판 댓글 개수 조회 -->
+  <select id="getCountComments" resultType="int">
+    SELECT COUNT(*) FROM BOARD_CMT
+    WHERE W_ID=#{w_id}
+  </select>
+  
+  <!-- 댓글 id로 조회 -->
+   <select id="getCommentById"  parameterType="cmtVo" resultType="cmtVo">
+ 	SELECT * FROM BOARD_CMT
+    WHERE C_ID=#{c_id}
+  </select>
+  
+
+  <!-- 댓글 생성 -->
+  <insert id="insertComment" parameterType="cmtVo"> 
+  	INSERT INTO BOARD_CMT (C_ID,W_ID,STD_ID,C_CMT,C_REGDT,C_DELNY)
+  	VALUES (board_cmd_seq.NEXTVAL, #{w_id}, #{std_id} ,#{c_cmt},#{c_regdt},'N') 
+
+  </insert>
+
+
+  <!-- 댓글 업데이트 -->
+  <update id="updateComment" parameterType="cmtVo" >
+  	UPDATE BOARD_CMT SET  C_DELNY = #{c_delny },
+  	 					  C_CMT= #{c_cmt }	 		
+	WHERE C_ID=#{c_id}
+  </update>
+  
+</mapper>  

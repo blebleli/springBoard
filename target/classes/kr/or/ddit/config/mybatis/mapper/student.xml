@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+
+
+  <!-- 로그인 체크  -->
+  <select id="loginCheck" resultType="stdVo">
+    SELECT * FROM STUDENT
+    WHERE STD_ID = #{std_id} AND PASS = #{pass}
+  </select>
+
+  <!-- 전체 학생 정보 조회 -->
+  <select id="getAllStudents" resultType="stdVo">
+    SELECT * FROM STUDENT
+  </select>
+  
+   <!-- 학생 정보 조회 -->
+   <select id="getStudentById"  parameterType="String"  resultType="stdVo">
+    SELECT * FROM STUDENT
+    WHERE STD_ID=#{std_id}
+  </select>
+  
+  
+  <!-- 학생정보 vo로조회 -->
+   <select id="getStudentByVo"  parameterType="stdVo" resultType="stdVo">
+ 	SELECT * FROM STUDENT
+    WHERE STD_ID=#{std_id}
+  </select>
+  
+
+<!-- 학생정보 업데이트 -->
+  <update id="studentUpdate" parameterType="stdVo" >
+  UPDATE STUDENT SET  pic     =	 #{pic}
+	                 ,picpath =  #{picpath}
+	                 ,picname =  #{picname}
+	                 ,name    =  #{name}
+	                 ,addr1   =  #{addr1}
+	                 ,addr2   =  #{addr2}
+	                 ,zipcd   =  #{zipcd}
+	WHERE STD_ID=#{std_id}
+  </update>
+
+  
+  <!-- 학생정보 페이징 조회 -->
+  
+  <select id="getStudentPageList"  parameterType="map" resultType="stdVo">
+  SELECT *
+	FROM
+	    (SELECT a.*, ROWNUM RN 
+	    FROM      
+	        (SELECT STUDENT.* 
+	         FROM STUDENT    
+	         ORDER BY NAME) a)
+	WHERE RN BETWEEN ((#{page}-1) * #{pageSize} +1) AND #{page} * #{pageSize}
+  </select>
+
+
+ <select id="getStudentTotCnt"  resultType="int">
+ 	SELECT COUNT(*) 
+ 	FROM STUDENT
+  </select>
+
+  
+</mapper>
