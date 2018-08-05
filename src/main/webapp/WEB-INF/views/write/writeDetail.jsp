@@ -52,14 +52,6 @@ $(document).ready(function() {
 
 </head>
 <body>
-	<!--  top.jsp -->
-	<%@ include file="/common/top.jsp"%>
-
-	<!--  left.jsp -->
-	<%@ include file="/common/left.jsp"%>
-
-
-				
 
 	<div class="col-md-10 col-md-offset-2 main">
 		
@@ -111,7 +103,7 @@ $(document).ready(function() {
 					</c:if>
 			</div>
 			
-			<%@ include file="/comment/commentList.jsp"%>
+		<!--  	<%@ include file="/comment/commentList.jsp"%>-->
 		
 		</div>
 	
