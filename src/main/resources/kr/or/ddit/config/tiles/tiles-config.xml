@@ -30,6 +30,10 @@
 	<definition name="writeList" extends="basicLayout"> 
 		<put-attribute name="content" value="/WEB-INF/views/write/writeList.jsp"/>	
 	</definition>
+	
+	<definition name="writeDetail" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/write/writeDetail.jsp"/>	
+	</definition>
 
 </tiles-definitions>
 

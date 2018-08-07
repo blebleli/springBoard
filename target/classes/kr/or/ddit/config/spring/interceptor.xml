@@ -7,7 +7,7 @@
 
 <mvc:interceptors>	
 	<mvc:interceptor>
-		<mvc:mapping path="/WEB-INF/views/tiles/left.jsp"/>
+		<mvc:mapping path="/**"/>
 		<bean class="board.interceptor.BoardInterceptor"/>
 	</mvc:interceptor>
 	

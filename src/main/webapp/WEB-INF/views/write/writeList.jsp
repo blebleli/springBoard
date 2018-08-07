@@ -1,4 +1,3 @@
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -45,11 +44,13 @@ function gotoDetailView(b_id,w_id){
 		<form action="/SE2/index.jsp" method="post" id="frm">
 			<div class="row">
 				<h2 class="sub-header">${boardName}</h2>
-				<input type="hidden" name="b_id" value=${b_id }> <input
-					type="hidden" name="w_parent" value="0">
+				<input type="hidden" name="b_id" value=${b_id }> 
+				<input type="hidden" name="w_parent" value="0">
+				
 				<p align="right">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 				</p>
+				
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<thead>
@@ -84,8 +85,6 @@ function gotoDetailView(b_id,w_id){
 							<%=request.getAttribute("pageNavi")%>
 						</ul>
 					</div>
-
-
 				</div>
 
 			</div>

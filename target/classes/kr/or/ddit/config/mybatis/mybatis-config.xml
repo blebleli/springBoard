@@ -29,5 +29,4 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/write.xml" />
 	</mappers>
 	
-	
 </configuration>
