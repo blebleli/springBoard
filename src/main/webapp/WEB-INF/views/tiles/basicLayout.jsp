@@ -14,8 +14,6 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>Jsp</title>
-
 <script src="/js/jquery-1.12.4.js"></script>
 <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
 <!-- Bootstrap core CSS -->

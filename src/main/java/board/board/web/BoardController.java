@@ -36,7 +36,6 @@ public class BoardController {
 		 return "boardList";
 	 }
 	
-	
 	@RequestMapping("/boardCreate")
 	 public String boardCreate(@RequestParam("boardName") String boardName) {
 		BoardVo boardVo = new BoardVo();
@@ -50,7 +49,6 @@ public class BoardController {
 		// insert
 		//boardService.insertBoard(boardVo);
 		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
-		 
 	 }
 	
 	@RequestMapping("/boardUpdate")
@@ -64,10 +62,8 @@ public class BoardController {
 		System.out.println("BoardUpdateServlet boardVo======>"+boardVo);
 		//update
 		//boardService.updateBoard(boardVo);
-		
 		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
 		 
 	 }
-	
 	
 }

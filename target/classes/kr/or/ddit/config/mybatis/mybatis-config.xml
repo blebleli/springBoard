@@ -9,6 +9,7 @@
 		<typeAlias type="board.student.model.StudentVo" alias="stdVo"/>
 		<typeAlias type="board.board.model.BoardVo" alias="boardVo"/>
 		<typeAlias type="board.write.model.WriteVo" alias="writeVo"/>
+		<typeAlias type="board.comment.model.CommentVo" alias="cmtVo"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -27,6 +28,7 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/student.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/write.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/comment.xml" />
 	</mappers>
 	
 </configuration>

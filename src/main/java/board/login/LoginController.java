@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import board.interceptor.LoginInterceptor;
@@ -32,15 +33,16 @@ public class LoginController {
 	
 	@RequestMapping("/loginProcess")
 	public String loginProcess2(@ModelAttribute StudentVo vo, HttpSession session ){
-		//vo에는 id pass 만 들어있어서 ㅡ check 필요
+		//vo에는 id pass 만 존재 ㅡ check 필요
 		StudentVo result = studentService.loginCheck(vo);
 		logger.debug("loginProcess2: " + vo.toString());
 
 		if (result != null) {
+
 			session.setAttribute("studentVo", result); //1234
-			 return "redirect:/login/main";
-			//성공메세지		
+			 return "redirect:/login/main";	
 		}else {
+			//msg==failur 값 set 필요
 			 return "redirect:/login/view";
 		}
 		

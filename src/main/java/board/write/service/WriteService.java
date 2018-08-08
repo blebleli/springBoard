@@ -109,10 +109,10 @@ public class WriteService implements WriteServiceInf {
 		int filstPage = 1;
 	
 		
-		pageNaviStr.append("<li><a href=\"/writeView?b_id="+b_id+"&page="+filstPage+
+		pageNaviStr.append("<li><a href=\"/write/writeList?b_id="+b_id+"&page="+filstPage+
 				"&pageSize="+pageSize+"\" aria-label=\"Previous\">"
 				+ "<span aria-hidden=\"true\">&laquo&laquo;</span></a></li>");
-		pageNaviStr.append("<li><a href=\"/writeView?b_id="+b_id+"&page="+prePage+
+		pageNaviStr.append("<li><a href=\"/write/writeList?b_id="+b_id+"&page="+prePage+
 				"&pageSize="+pageSize+"\" aria-label=\"Previous\">"
 				+ "<span aria-hidden=\"true\">&laquo;</span></a></li>");
 
@@ -121,14 +121,14 @@ public class WriteService implements WriteServiceInf {
 			if (i==page) 
 				activeClass = "class=\"active\"";
 
-			pageNaviStr.append("<li "+activeClass+"><a href=\"/writeView?b_id="+b_id+"&page="+i+
+			pageNaviStr.append("<li "+activeClass+"><a href=\"/write/writeList?b_id="+b_id+"&page="+i+
 									 "&pageSize="+pageSize+"\">"+i+"</a></li>");
 		}	
 		
-		pageNaviStr.append("<li><a href=\"/writeView?b_id="+b_id+"&page="+nextPage+
+		pageNaviStr.append("<li><a href=\"/write/writeList?b_id="+b_id+"&page="+nextPage+
 				"&pageSize="+pageSize+ "\"aria-label=\"Next\">"
 				+ "<span aria-hidden=\"true\">&raquo;</span></a></li>");
-		pageNaviStr.append("<li><a href=\"/writeView?b_id="+b_id+"&page="+cnt+
+		pageNaviStr.append("<li><a href=\"/write/writeList?b_id="+b_id+"&page="+cnt+
 				"&pageSize="+pageSize+ "\"aria-label=\"Next\">"
 				+ "<span aria-hidden=\"true\">&raquo&raquo;</span></a></li>");
 		

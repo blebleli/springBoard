@@ -34,7 +34,15 @@
 	<definition name="writeDetail" extends="basicLayout"> 
 		<put-attribute name="content" value="/WEB-INF/views/write/writeDetail.jsp"/>	
 	</definition>
-
+	
+	<definition name="writeNew" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/SE2/index.jsp"/>	
+	</definition>
+	
+	<definition name="writeUpdate" extends="basicLayout"> 
+		<put-attribute name="content" value="/WEB-INF/views/SE2/indexUpdate.jsp"/>	
+	</definition>
+	
 </tiles-definitions>
 
 

@@ -32,64 +32,52 @@
 </style>
 
 <script>
-function gotoDetailView(b_id,w_id){
-		location.href="/writeDetailView?b_id="+b_id+"&w_id="+w_id;
+function gotoDetailView(w_id){
+		location.href="/write/writeDetail?&w_id="+w_id;
 }
 
 </script>
 </head>
 <body>
 
-	<div class="container-fluid">
-		<form action="/SE2/index.jsp" method="post" id="frm">
-			<div class="row">
-				<h2 class="sub-header">${boardName}</h2>
-				<input type="hidden" name="b_id" value=${b_id }> 
-				<input type="hidden" name="w_parent" value="0">
-				
-				<p align="right">
-					<button type="submit" class="btn btn-primary">글쓰기</button>
-				</p>
-				
-				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th class="boardNum">게시글번호</th>
-								<th class="boardTitle">제목</th>
-								<th class="boardWriter">작성자ID</th>
-								<th class="boardDate">생성일자</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<c:forEach items="${writeList}" var="vo">
-								<!--  items 루프할 대상-->
-								<tr
-									onclick="'${vo.w_delny}'=='Y' ? true : gotoDetailView(${b_id },${vo.w_id })">
-									<!-- data-id="${vo.w_title}"  //"${vo.w_id}" -->
-									<%--tr태그 클릭시 , 상세페이지로 이동 --%>
-									<td>${vo.numview}</td>
-									<td>${vo.titleview}</td>
-									<td>${vo.std_id }</td>
-									<td><fmt:formatDate value="${vo.w_regdt}"
-											pattern="yyyy-MM-dd" /></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-
-					</table>
-
-					<div class="text-center">
-						<ul class="pagination">
-							<%=request.getAttribute("pageNavi")%>
-						</ul>
-					</div>
-				</div>
-
+<div class="container-fluid">
+		<div class="row">
+		<h2 class="sub-header">${boardName}</h2>
+		<p align="right">																	<!-- writeView 만으로 이동하는것? -->
+			<button type="button" class="btn btn-primary" onclick="location.href='writeNew?b_id=${b_id}'">글쓰기</button>
+		</p>
+	
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th class="boardNum">게시글번호</th>
+						<th class="boardTitle">제목</th>
+						<th class="boardWriter">작성자ID</th>
+						<th class="boardDate">생성일자</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${writeList}" var="vo">
+						<tr onclick="'${vo.w_delny}'=='Y' ? true : gotoDetailView(${vo.w_id })">
+							<td>${vo.numview}  </td>
+							<td>${vo.titleview}</td>
+							<td>${vo.std_id }  </td>
+							<td><fmt:formatDate value="${vo.w_regdt}" pattern="yyyy-MM-dd" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	
+			<div class="text-center">
+				<ul class="pagination">
+					<%=request.getAttribute("pageNavi")%>
+				</ul>
 			</div>
-		</form>
+			
+		</div>
 	</div>
+</div>
 
 </body>
 </html>
