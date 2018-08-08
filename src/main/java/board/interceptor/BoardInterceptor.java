@@ -19,26 +19,12 @@ public class BoardInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
 			Object handler) throws Exception {
-		System.out.println("=--=========================== board INterceptor");
+		System.out.println("=--===========================preHandle board INterceptor");
 		BoardServiceInf boardService = new BoardService();
 		List<BoardVo> boardList = boardService.getAllBoards();
 		request.setAttribute("boardList", boardList);
 		
 		return true;
 	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		
-		System.out.println("=--=========================== board INterceptor");
-		BoardServiceInf boardService = new BoardService();
-		List<BoardVo> boardList = boardService.getAllBoards();
-		request.setAttribute("boardList", boardList);
-		
-		super.postHandle(request, response, handler, modelAndView);
-	}
 	
-	
-
 }

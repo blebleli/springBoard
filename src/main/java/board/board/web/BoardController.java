@@ -5,15 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import board.board.model.BoardVo;
 import board.board.service.BoardServiceInf;
+import board.student.model.StudentVo;
 
 @SessionAttributes
 @RequestMapping("/board")
@@ -27,10 +31,11 @@ public class BoardController {
 	@RequestMapping("/boardList")
 	 public String boardView(Model model) {
 		//interceptor 하면, model set안해도 되야한다.?
-		List<BoardVo> boardList = boardService.getAllBoards();
-		model.addAttribute("boardList",boardList);
+//		List<BoardVo> boardList = boardService.getAllBoards();
+//		model.addAttribute("boardList",boardList);
 		 return "boardList";
 	 }
+	
 	
 	@RequestMapping("/boardCreate")
 	 public String boardCreate(@RequestParam("boardName") String boardName) {
@@ -44,7 +49,7 @@ public class BoardController {
 		System.out.println("BoardCreateServlet boardVo======>"+boardVo);
 		// insert
 		//boardService.insertBoard(boardVo);
-		 return "redirect:boardView"; //url로 redirect 하는 방법도 있다.
+		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
 		 
 	 }
 	
@@ -60,7 +65,7 @@ public class BoardController {
 		//update
 		//boardService.updateBoard(boardVo);
 		
-		 return "redirect:boardView"; //url로 redirect 하는 방법도 있다.
+		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
 		 
 	 }
 	

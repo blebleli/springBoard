@@ -11,10 +11,15 @@
 		<bean class="board.interceptor.BoardInterceptor"/>
 	</mvc:interceptor>
 	
-<!-- 	<mvc:interceptor>
+	<mvc:interceptor>
 		<mvc:mapping path="/**"/>
+		<mvc:exclude-mapping path="/login/view"/>
+		<mvc:exclude-mapping path="/login/loginProcess"/>
+		<mvc:exclude-mapping path="/bootstrap/**"/>
+		<mvc:exclude-mapping path="/css/**"/>
+		<mvc:exclude-mapping path="/js/**"/>
 		<bean class="board.interceptor.LoginInterceptor"/>
-	</mvc:interceptor>  -->
+	</mvc:interceptor> 
 </mvc:interceptors>
 
 

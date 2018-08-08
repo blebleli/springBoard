@@ -4,12 +4,15 @@ package board.login;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import board.interceptor.LoginInterceptor;
 import board.student.model.StudentVo;
 import board.student.service.StudentService;
 import board.student.service.StudentServiceInf;
@@ -17,6 +20,8 @@ import board.student.service.StudentServiceInf;
 @RequestMapping("/login")
 @Controller("loginController")
 public class LoginController {
+
+	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	StudentServiceInf studentService = new StudentService();
 
@@ -26,26 +31,29 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/loginProcess")
-	public ModelAndView loginProcess2(@ModelAttribute StudentVo vo, HttpSession session ){
+	public String loginProcess2(@ModelAttribute StudentVo vo, HttpSession session ){
+		//vo에는 id pass 만 들어있어서 ㅡ check 필요
 		StudentVo result = studentService.loginCheck(vo);
-		ModelAndView mav = new ModelAndView();
+		logger.debug("loginProcess2: " + vo.toString());
+
 		if (result != null) {
-			session.setAttribute("studentVo", vo);
-			mav.setViewName("main");
+			session.setAttribute("studentVo", result); //1234
+			 return "redirect:/login/main";
 			//성공메세지		
 		}else {
-			mav.setViewName("login/login");
-			mav.addObject("msg","failure");
+			 return "redirect:/login/view";
 		}
-		return mav;
+		
+	}
+	
+	@RequestMapping("/main")
+	public String main(@ModelAttribute StudentVo vo, HttpSession session ){
+		return "main";
 	}
 	
 	@RequestMapping("/logoutProcess")
-	public ModelAndView logoutProcess(HttpSession session) {
+	public String logoutProcess(HttpSession session) {
 		studentService.logout(session);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login/login");
-		//mav.addObject("msg","logout");
-		return mav;
+		 return "redirect:/login/view";
 	}
 }
