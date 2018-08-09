@@ -12,6 +12,8 @@
     <link rel="icon" href="../../favicon.ico">
     <title>Signin</title>
     <!-- Bootstrap core CSS -->
+    
+    <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/signin.css" rel="stylesheet">
 

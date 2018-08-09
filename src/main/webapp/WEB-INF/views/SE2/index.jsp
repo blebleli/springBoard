@@ -8,9 +8,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Smart Editor</title>
-</head>
 
-<body>
+
+
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+<!-- jQuery -->
+<!-- <script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>-->
+
+<!--  <script type="text/javascript" src="/js/jquery/jquery-3.2.1.js"></script>-->
+<script type="text/javascript" src="/js/jquery-1.12.4.js"></script>
+<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<script src="/bootstrap/js/bootstrap.js"></script>
+<!-- Custom styles for this template -->
+<link href="/css/dashboard.css" rel="stylesheet">
+<link href="/css/blog.css" rel="stylesheet">
+<script src="/SE2/js/HuskyEZCreator.js"></script>
+
+
 	<script>
 		var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
 
@@ -74,15 +93,10 @@
 		    } catch(e) {}
 		} 
 
-		
-    function gotoWriteList(b_id){
-
-		location.href="/writeView?b_id="+b_id+"&page=1&pageSize=10"
-	 }
-		
-    
+ 
 	</script>
-
+</head>
+<body>
 		<form action="/write/writeCreate" method="post" id="frm">
 			<div class="form-horizontal">
 				<div class="col-sm-1">
@@ -92,15 +106,16 @@
 					<input type="text" class="form-control" id="w_title" name="w_title">
 				</div>
 			</div>
-			
-			<div>
-				<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
-					style="width: 90%; height: 412px;"></textarea>
-			</div>
-			
+
+				
+			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width: 90%; height: 412px;"></textarea>
+
+
 			<div class="col-sm-11" style="text-align: center;">
 				<input type="hidden" name="b_id" value="${b_id }">
+				<input type="hidden" name="w_id" value="${w_id }">
 				<input type="hidden" name="w_parent" value="${w_parent }">
+		
 				<button class="btn btn-primary" type="submit" >등록</button>
 		
 	
@@ -111,17 +126,23 @@
 				<button type="button" class="btn btn-default" onclick="">첨부파일</button>
 			
 			</div>
+		</form>
 			<div>
 				<hr>
-					첨부파일 list
-					<input class="btn btn-default" type="file" name="uploadFile">
-					<input class="btn btn-default" type="file" name="uploadFile">
-					<input class="btn btn-default" type="file" name="uploadFile">
-					<input class="btn btn-default" type="file" name="uploadFile">
-					<input class="btn btn-default" type="file" name="uploadFile">
-					<input class="btn btn-primary" type="submit" value="첨부파일 저장" /><br>
+				첨부파일 list
+				<form action="/file/upload" enctype="multipart/form-data" method="post">
+		
+					<!--  <input type="file" name="uploadFile"><br>-->
+					
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="submit" value="전송">	
+				</form>
+				<br>
 			</div>
-		</form>
 
 </body>
 </html>

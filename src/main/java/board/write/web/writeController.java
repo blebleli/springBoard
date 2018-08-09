@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ser.std.FileSerializer;
+
 import board.board.model.BoardVo;
 import board.board.service.BoardServiceInf;
+import board.boardFile.model.BoardFileVo;
+import board.boardFile.service.BoardFileServiceInf;
+import board.student.model.StudentVo;
 import board.write.model.WriteVo;
 import board.write.service.WriteService;
 import board.write.service.WriteServiceInf;
@@ -29,6 +35,8 @@ public class writeController {
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
 	
+	@Resource(name="fileService")
+	private BoardFileServiceInf fileService;
 	
 	@RequestMapping("/writeList")
 	 public String writeView(@RequestParam Map<String,String> param, Model model) {
@@ -68,10 +76,14 @@ public class writeController {
 	@RequestMapping("/writeDetail")
 	 public String writeDetail(@RequestParam Map<String,String> param, Model model) {
 	
-		WriteVo writeVo = 
-		writeService.getWriteById(Integer.parseInt(param.get("w_id")));
+		int w_id = Integer.parseInt(param.get("w_id"));
+		
+		WriteVo writeVo = writeService.getWriteById(w_id);
 	
+		List<BoardFileVo> fileList = fileService.getAllFiles(w_id);
+		
 		model.addAttribute("writeVo", writeVo);
+		model.addAttribute("fileList", fileList);
 		
 		return "writeDetail";
 	}
@@ -96,12 +108,37 @@ public class writeController {
 		model.addAttribute("b_id", writeVo.getB_id());
 		model.addAttribute("writeVo", writeVo);
 		
-		return "writeUpdate";
+		return "writeUpdate"; //index
+	}
+	
+	@RequestMapping("/writeDelete")
+	 public String writeDelete(@RequestParam Map<String,String> param, Model model) {
+	
+		System.out.println("삭제 =====================================================");
+		
+		int b_id= Integer.parseInt(param.get("b_id"));
+		int w_id = Integer.parseInt(param.get("w_id"));
+		String w_delny = "Y";
+	
+		WriteVo writeVo = new WriteVo();
+		writeVo.setW_delny(w_delny);
+		writeVo.setW_id(w_id);
+			
+		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
+	
+		//게시글 delete update
+		//writeService.deleteWrite(writeVo);
+	
+		
+		model.addAttribute("b_id", b_id);
+	
+		return "redirect:writeList";
 	}
 
 	
 	@RequestMapping("/writeCreate")
-	 public String writeCreate(@RequestParam Map<String,String> param, Model model) {
+	 public String writeCreate(@RequestParam Map<String,String> param, Model model,HttpSession session) {
+		StudentVo studentVo = (StudentVo)session.getAttribute("studentVo");
 		
 		WriteVo writeVo = new WriteVo();
 		int b_id= Integer.parseInt(param.get("b_id"));
@@ -110,7 +147,8 @@ public class writeController {
 		if (param.get("w_parent") == "") {writeVo.setW_parent(0); }
 		else{ writeVo.setW_parent(Integer.parseInt(param.get("w_parent"))); }
 	
-		writeVo.setStd_id   (param.get("std_id"      )); 		 	 
+		
+		writeVo.setStd_id   (studentVo.getStd_id()); 		 	 
 		writeVo.setB_id	    (b_id);  			 
 		writeVo.setW_title  (param.get("w_title"     ));  			 
 		writeVo.setW_content(param.get("smarteditor" ));  	 		 

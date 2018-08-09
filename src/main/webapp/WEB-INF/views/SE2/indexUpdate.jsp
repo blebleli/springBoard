@@ -107,10 +107,9 @@ request.setCharacterEncoding("utf-8");
 				<button class="btn btn-primary" type="submit" >수정하기</button>
 		
 				<button type="button" class="btn btn-default"
-					onclick="location.href='writeList?b_id=${b_id}'">
+					onclick="location.href='writeDetail?w_id=${writeVo.w_id}'">
 					돌아가기</button>
-					
-				<button type="button" class="btn btn-default" onclick="">첨부파일</button>
+
 			</div>
 		</form>
 </body>

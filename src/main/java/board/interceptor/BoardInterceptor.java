@@ -2,6 +2,7 @@ package board.interceptor;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,13 +15,15 @@ import board.board.service.BoardServiceInf;
 
 public class BoardInterceptor extends HandlerInterceptorAdapter{
 
+	@Resource(name="boardService")
+	BoardServiceInf boardService;
 
 	// left 를 호출 전, preHandler
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
 			Object handler) throws Exception {
 		System.out.println("=--===========================preHandle board INterceptor");
-		BoardServiceInf boardService = new BoardService();
+		
 		List<BoardVo> boardList = boardService.getAllBoards();
 		request.setAttribute("boardList", boardList);
 		

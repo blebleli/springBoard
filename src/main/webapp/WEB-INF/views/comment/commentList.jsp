@@ -20,9 +20,10 @@
 				<td style="width: 100px;">
 					<c:set value="${studentVo.std_id}" var="loginStd"/>
 					<c:if test="${loginStd eq item.std_id}" var="result">
-					<form action="/commentDelete" method="post" id="frmDelete">
-						<input type="hidden" name="w_id" value="${writeVo.w_id}">
-						<input type="hidden" name="b_id" value="${writeVo.b_id}">
+					<form action="/comment/commentDelete" method="post" id="frmDelete">
+						
+						<input type="hidden" name="w_id" value="${item.w_id}">
+	
 						<input type="hidden" name="c_id" value="${item.c_id}">
 						<button type="submit" class="btn btn-default btn-xs">삭제</button>
 					</form>

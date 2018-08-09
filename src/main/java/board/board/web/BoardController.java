@@ -30,26 +30,28 @@ public class BoardController {
 	
 	@RequestMapping("/boardList")
 	 public String boardView(Model model) {
-		//interceptor 하면, model set안해도 되야한다.?
-//		List<BoardVo> boardList = boardService.getAllBoards();
-//		model.addAttribute("boardList",boardList);
+		
 		 return "boardList";
 	 }
 	
+	
 	@RequestMapping("/boardCreate")
-	 public String boardCreate(@RequestParam("boardName") String boardName) {
+	 public String boardCreate(@RequestParam("boardName") String boardName, HttpSession session) {
+		
+		StudentVo studentVo = (StudentVo)session.getAttribute("studentVo");
 		BoardVo boardVo = new BoardVo();
 		
-		//std_id interceptor 확인해야한다. 
 		//파라미터로 받은 값을 vo에 설정
 		boardVo.setB_name(boardName);
-		boardVo.setStd_id("std_2");
+		boardVo.setStd_id(studentVo.getStd_id());
 		boardVo.setB_regdt(new Date());
 		System.out.println("BoardCreateServlet boardVo======>"+boardVo);
+		
 		// insert
 		//boardService.insertBoard(boardVo);
 		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
 	 }
+	
 	
 	@RequestMapping("/boardUpdate")
 	 public String boardUpdate(@RequestParam Map<String,String> param) {
@@ -60,9 +62,10 @@ public class BoardController {
 		boardVo.setB_useny(param.get("b_useny"));
 		
 		System.out.println("BoardUpdateServlet boardVo======>"+boardVo);
+	
 		//update
 		//boardService.updateBoard(boardVo);
-		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
+		 return "redirect:boardList"; 
 		 
 	 }
 	

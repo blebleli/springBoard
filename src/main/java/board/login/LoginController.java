@@ -42,7 +42,6 @@ public class LoginController {
 			session.setAttribute("studentVo", result); //1234
 			 return "redirect:/login/main";	
 		}else {
-			//msg==failur 값 set 필요
 			 return "redirect:/login/view";
 		}
 		

@@ -1,5 +1,9 @@
 package board.boardFile.model;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class BoardFileVo {
 	int f_id      ;
@@ -52,6 +56,20 @@ public class BoardFileVo {
 				+ std_id + ", f_file=" + f_file + ", f_path=" + f_path
 				+ ", f_name=" + f_name + "]";
 	}
+	
+	
+	//db에 없는 구역 ----------------------
+	private List<MultipartFile> files;
+
+	
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
+
 	
 
 	

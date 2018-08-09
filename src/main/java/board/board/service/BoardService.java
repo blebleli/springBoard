@@ -2,15 +2,18 @@ package board.board.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
-import board.board.dao.BoardDao;
+import board.board.dao.BoardDaoInf;
 import board.board.model.BoardVo;
 
 @Service("boardService")
 public class BoardService implements BoardServiceInf{
 
-	BoardDao boardDao = new BoardDao();
+	@Resource(name="boardDao")
+	private BoardDaoInf boardDao;
 	
 	@Override
 	public List<BoardVo> getAllBoards() {

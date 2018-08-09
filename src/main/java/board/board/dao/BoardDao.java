@@ -2,12 +2,15 @@ package board.board.dao;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 
 import board.board.model.BoardVo;
 import board.mybatis.SqlMapSessionFactory;
 
+@Repository("boardDao")
 public class BoardDao implements BoardDaoInf {
 
 	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();

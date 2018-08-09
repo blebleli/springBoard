@@ -1,7 +1,6 @@
 package board.interceptor;
 
-import java.util.List;
-
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,17 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import board.board.model.BoardVo;
-import board.board.service.BoardService;
-import board.board.service.BoardServiceInf;
 import board.student.service.StudentService;
 import board.student.service.StudentServiceInf;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
+	
+	@Resource(name="studentService")
+	StudentServiceInf studentService;
 
 	//logger
 	private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-	StudentServiceInf studentService = new StudentService();
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,

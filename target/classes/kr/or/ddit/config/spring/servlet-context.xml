@@ -49,6 +49,8 @@
 	<!-- view resolver -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		
+		
 		<property name="order" value="2" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
@@ -63,7 +65,7 @@
 <!--	<bean id="excelDownloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView" />-->
 
 	<!-- fileDownload view -->
-<!--	<bean id="fileDownloadView" class="kr.or.ddit.mvc.view.FileDownloadView" />-->
+	<bean id="fileDownloadView" class="board.boardFile.web.FileDownloadView" />
 
 
 	<!-- muliPart -->

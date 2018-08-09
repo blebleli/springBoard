@@ -14,7 +14,8 @@ public class WriteVo {
 	String w_delny   ;
 	int w_view       ;
 	int w_filenum    ;
-	int numview		 ;
+	
+	int numview		 ;	
 	String titleview ;
 	
 
@@ -172,6 +173,8 @@ public class WriteVo {
 	}
 
 
+	
+	
 
 
 	public String getTitleview() {

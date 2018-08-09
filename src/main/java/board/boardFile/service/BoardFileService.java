@@ -2,9 +2,12 @@ package board.boardFile.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import board.boardFile.dao.BoardFileDao;
 import board.boardFile.model.BoardFileVo;
 
+@Service("fileService")
 public class BoardFileService implements BoardFileServiceInf {
 
 	BoardFileDao boardFileDao = new BoardFileDao();
