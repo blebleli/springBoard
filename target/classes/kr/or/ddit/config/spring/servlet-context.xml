@@ -23,11 +23,14 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-
-
-
-
-
+	
+    <!-- 구조를 건들지않고 원하는 경로만 노출시킨다. -->
+	<mvc:resources mapping="/SE2/css/**" location="/WEB-INF/views/SE2/css/"/>
+	<mvc:resources mapping="/SE2/js/**" location="/WEB-INF/views/SE2/js/"/>
+	<mvc:resources mapping="/SE2/photo_uploader/**" location="/WEB-INF/views/SE2/photo_uploader/"/>
+	<mvc:resources mapping="/SE2/img/**" location="/WEB-INF/views/SE2/img/"/>
+	<mvc:resources mapping="/SE2/*.html" location="/WEB-INF/views/SE2/"/>
+	
 	<!-- bean name view resolver -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0"></property>

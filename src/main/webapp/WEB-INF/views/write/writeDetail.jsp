@@ -51,14 +51,15 @@ $(document).ready(function() {
     
 //	$("#screen").load("/comment/commentList");
     	
-	
+		var element = $('input[name=w_id]') ;
+		var w_id = element.val();
 	
  		$.ajax({
 			url : "/comment/commentList",						//"/comment/commentList.jsp",
 			method : "get",
 			contentType : "application/json; charset=utf-8",	//json 전송을 알려주는 contentType
 			dataType : "html",									//server로 부터 받을 data type
-			data : {"w_id" : "50"},
+			data : {"w_id" : w_id},
 			success : function(data){  //callback 출력
 			 	//console.log(data);
 			 	$("#screen").html(data);

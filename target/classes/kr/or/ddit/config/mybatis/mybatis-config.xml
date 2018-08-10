@@ -13,7 +13,7 @@
 		<typeAlias type="board.boardFile.model.BoardFileVo" alias="fileVo"/>
 	</typeAliases>
 	
-	<environments default="development">
+<!-- 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -24,7 +24,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-
+ -->
 	<mappers>
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/student.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml" />
