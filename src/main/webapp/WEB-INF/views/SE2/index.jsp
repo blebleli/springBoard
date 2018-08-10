@@ -4,29 +4,8 @@
 --------------------------------------------------------------------------------%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Smart Editor</title>
 
 
-
-
-<!-- Favicon -->
-<link rel="shortcut icon" href="favicon.ico" />
-
-<!-- jQuery -->
-<!-- <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/jquery-ui.min.js"></script>-->
-
-<!--  <script type="text/javascript" src="/js/jquery/jquery-3.2.1.js"></script>-->
-<script type="text/javascript" src="/js/jquery-1.12.4.js"></script>
-<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-<!-- Bootstrap core CSS -->
-<script src="/bootstrap/js/bootstrap.js"></script>
-<!-- Custom styles for this template -->
-<link href="/css/dashboard.css" rel="stylesheet">
-<link href="/css/blog.css" rel="stylesheet">
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 
 
@@ -95,8 +74,6 @@
 
  
 	</script>
-</head>
-<body>
 		<form action="/write/writeCreate" method="post" id="frm">
 			<div class="form-horizontal">
 				<div class="col-sm-1">
@@ -144,5 +121,3 @@
 				<br>
 			</div>
 
-</body>
-</html>
