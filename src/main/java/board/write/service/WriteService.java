@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import board.comment.dao.CommentDaoInf;
 import board.student.dao.StudentDao;
 import board.student.dao.StudentDaoInf;
 import board.student.model.StudentVo;
@@ -16,7 +19,10 @@ import board.write.model.WriteVo;
 @Service("writeService")
 public class WriteService implements WriteServiceInf {
 
-	WriteDaoInf	writeDao = new WriteDao();
+
+	@Resource(name="writeDao")
+	private WriteDaoInf writeDao;
+	
 	
 	@Override
 	public List<WriteVo> getAllWrites(int b_id) {

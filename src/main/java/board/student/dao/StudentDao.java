@@ -3,29 +3,32 @@ package board.student.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import board.mybatis.SqlMapSessionFactory;
 import board.student.model.StudentVo;
 
+@Repository("studentDao")
 public class StudentDao implements StudentDaoInf {
 	
-
-	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();
-	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
 	
 
 	@Override
 	public StudentVo loginCheck(StudentVo vo) {
-		SqlSession session = sqlSessionFactory.openSession();
-		StudentVo studentVo = session.selectOne("student.loginCheck",vo);
-		session.close();
-		return studentVo;
+	
+		return session.selectOne("student.loginCheck",vo);
+	
+	
 		
 	}
 
@@ -47,12 +50,10 @@ public class StudentDao implements StudentDaoInf {
 	 */
 	@Override
 	public List<StudentVo> getAllStudents() {
-		SqlSession session = sqlSessionFactory.openSession();
 		
-		List<StudentVo> studentList = session.selectList("student.getAllStudents");
-		session.close();
 		
-		return studentList;
+		return session.selectList("student.getAllStudents");
+	
 	}
 	
 	/**
@@ -68,11 +69,10 @@ public class StudentDao implements StudentDaoInf {
 
 	@Override
 	public StudentVo getStudentById(String stdId) {
-		SqlSession session = sqlSessionFactory.openSession();
-		StudentVo studentList = session.selectOne("student.getStudentById",stdId);
+		
+		return session.selectOne("student.getStudentById",stdId);
 		//단수형태의 값을 리턴 selectOne
-		session.close();
-		return studentList;
+
 	}
 	
 	
@@ -80,13 +80,10 @@ public class StudentDao implements StudentDaoInf {
 	
 	@Override
 	public StudentVo getStudentByVo(StudentVo studentVo) {
-		SqlSession session = sqlSessionFactory.openSession();
 		
-		StudentVo vo = session.selectOne("student.getStudentByVo",studentVo);
-		//단수형태의 값을 리턴 selectOne
-		session.close();
 		
-		return vo;
+		return session.selectOne("student.getStudentByVo",studentVo);
+
 	
 	}
 
@@ -102,22 +99,18 @@ public class StudentDao implements StudentDaoInf {
 	 */
 	@Override
 	public List<StudentVo> getStudentPageList(Map<String, Integer> map) {
-		SqlSession session = sqlSessionFactory.openSession();
 		
-		List<StudentVo> studentList = session.selectList("student.getStudentPageList",map);
 		
-		session.close();
-		return studentList;
+		return session.selectList("student.getStudentPageList",map);
+
 	}
 	
 	@Override
 	public int getStudentTotCnt() {
-		SqlSession session = sqlSessionFactory.openSession();
 		
-	    int studentCnt = session.selectOne("student.getStudentTotCnt");
-	    session.commit();
-		session.close();
-		return studentCnt;
+		
+		return session.selectOne("student.getStudentTotCnt");
+	
 	}
 
 	
@@ -133,11 +126,9 @@ public class StudentDao implements StudentDaoInf {
 	 */
 	@Override
 	public int studentUpdate(StudentVo studentVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("student.studentUpdate",studentVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+			
+		return session.update("student.studentUpdate",studentVo);
+
 	}
 
 

@@ -31,7 +31,7 @@ public class commentController {
 	 public String commentList(@RequestParam Map<String,String> param, Model model) {
 
 		//!Integer.parseInt(param.get("w_id")));---------------------------------------------------------------
-		List<CommentVo> commentList = commentService.getAllComments(50);//Integer.parseInt(param.get("w_id")));
+		List<CommentVo> commentList = commentService.getAllComments(Integer.parseInt(param.get("w_id")));
 		
 		model.addAttribute("commentList",commentList);
 		model.addAttribute("commentCnt",commentList.size());

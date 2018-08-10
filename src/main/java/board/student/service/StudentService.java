@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import board.student.dao.StudentDao;
@@ -15,9 +17,10 @@ import board.student.model.StudentVo;
 @Service("studentService")
 public class StudentService implements StudentServiceInf {
 	
-	StudentDaoInf studentDao = new StudentDao();
 
-
+	@Resource(name="studentDao")
+	private StudentDaoInf studentDao;
+	
 	@Override
 	public StudentVo loginCheck(StudentVo vo) {
 		return studentDao.loginCheck(vo);

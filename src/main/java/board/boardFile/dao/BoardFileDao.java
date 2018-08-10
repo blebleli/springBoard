@@ -3,57 +3,57 @@ package board.boardFile.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import board.boardFile.model.BoardFileVo;
 import board.mybatis.SqlMapSessionFactory;
 
+@Repository("boardFileDao")
 public class BoardFileDao implements BoardFileDaoInf {
-	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();
-
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
+	
 	@Override
 	public List<BoardFileVo> getAllFiles(int w_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<BoardFileVo> fileList = session.selectList("boardFile.getAllFiles",w_id);
-		session.close();
-		return fileList;
+		
+		return session.selectList("boardFile.getAllFiles",w_id);
+	
 	}
 
 	@Override
 	public int countFile(int w_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		int fileCnt = session.selectOne("boardFile.countFile",w_id);
-		session.close();
-		return fileCnt;
+
+		return session.selectOne("boardFile.countFile",w_id);
+
 	}
 
 	@Override
 	public BoardFileVo getFileById(int f_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		BoardFileVo boardFileVo = session.selectOne("boardFile.getFileById",f_id);
-		session.close();
-		return boardFileVo;
+		
+		return session.selectOne("boardFile.getFileById",f_id);
+
 	}
 
 	@Override
 	public int updateFile(BoardFileVo boardFileVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("boardFile.updateFile",boardFileVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+
+		return session.update("boardFile.updateFile",boardFileVo);
+	   
+	
 	}
 
 	@Override
 	public int insertFile(BoardFileVo boardFileVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int insertCnt = session.insert("boardFile.insertFile",boardFileVo);
-	    session.commit();
-		session.close();
-		return insertCnt;
+	
+		return session.insert("boardFile.insertFile",boardFileVo);
+	   
 	}
-
 
 
 }

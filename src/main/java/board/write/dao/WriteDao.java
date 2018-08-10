@@ -3,92 +3,85 @@ package board.write.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import board.mybatis.SqlMapSessionFactory;
 import board.student.model.StudentVo;
 import board.write.model.WriteVo;
 
+@Repository("writeDao")
 public class WriteDao implements WriteDaoInf {
 
-	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
 	
 	@Override
 	public List<WriteVo> getAllWrites(int b_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<WriteVo> writeList = session.selectList("write.getAllWrites",b_id);
-		session.close();
-		return writeList;
+		
+		return session.selectList("write.getAllWrites",b_id);
+	
 	}
 	
 	@Override
 	public List<WriteVo> getWriteView(Map<String, Integer> map) {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<WriteVo> writeList = session.selectList("write.getWriteView",map);
-		session.close();
-		return writeList;
+		
+		return session.selectList("write.getWriteView",map);
+	
 	}
 	
 	
 
 	@Override
 	public WriteVo getWriteById(int w_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		WriteVo writeList = session.selectOne("write.getWriteById",w_id);
-		session.close();
-		return writeList;
+		
+		return session.selectOne("write.getWriteById",w_id);
+	
 	}
 
 	@Override
 	public int updateWrite(WriteVo writeVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("write.updateWrite",writeVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+			
+		return session.update("write.updateWrite",writeVo);
+
 	}
 
 
 	@Override
 	public int deleteWrite(WriteVo writeVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int deleteCnt = session.update("write.deleteWrite",writeVo);
-	    session.commit();
-		session.close();
-		return deleteCnt;
+			
+		return session.update("write.deleteWrite",writeVo);
+	  
 	}
 	
 
 	@Override
 	public int updateWriteFile(WriteVo writeVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("write.updateWriteFile",writeVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+			
+		return session.update("write.updateWriteFile",writeVo);
+	 
 	}
 
 	
 	
 	@Override
 	public int insertWrite(WriteVo writeVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int insertCnt = session.insert("write.insertWrite",writeVo);
-	    session.commit();
-		session.close();
-		return insertCnt;
+			
+		return session.insert("write.insertWrite",writeVo);
+	
 	}
 
 
 
 	@Override
 	public int getWriteTotCnt(int b_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-	    int writeCnt = session.selectOne("write.getWriteTotCnt",b_id);
-	    session.commit();
-		session.close();
-		return writeCnt;
+		
+		return session.selectOne("write.getWriteTotCnt",b_id);
+	
 		
 	}
 

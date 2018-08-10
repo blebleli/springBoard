@@ -142,11 +142,10 @@ public class writeController {
 		
 		WriteVo writeVo = new WriteVo();
 		int b_id= Integer.parseInt(param.get("b_id"));
-
-	   //--답글여부 check
+s
+	    //--답글여부 check
 		if (param.get("w_parent") == "") {writeVo.setW_parent(0); }
 		else{ writeVo.setW_parent(Integer.parseInt(param.get("w_parent"))); }
-	
 		
 		writeVo.setStd_id   (studentVo.getStd_id()); 		 	 
 		writeVo.setB_id	    (b_id);  			 
@@ -157,7 +156,7 @@ public class writeController {
 		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
 	
 		//게시글 insert
-		//writeService.insertWrite(writeVo);
+		writeService.insertWrite(writeVo);
 		model.addAttribute("b_id", b_id);
 		
 		//writeList 뒤에 알아서 ?를 표시해준다 신기

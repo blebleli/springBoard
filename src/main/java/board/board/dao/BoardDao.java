@@ -2,51 +2,36 @@ package board.board.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import board.board.model.BoardVo;
-import board.mybatis.SqlMapSessionFactory;
 
 @Repository("boardDao")
 public class BoardDao implements BoardDaoInf {
 
-	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();
-
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
+	
 	@Override
 	public List<BoardVo> getAllBoards() {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<BoardVo> boardList = session.selectList("board.getAllBoards");
-		session.close();
-		return boardList;
+		return session.selectList("board.getAllBoards");
 	}
 
 	@Override
 	public BoardVo getBoardById(int b_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		BoardVo boardList = session.selectOne("board.getBoardById",b_id);
-		session.close();
-		return boardList;
+		return session.selectOne("board.getBoardById",b_id);
 	}
 
 	@Override
 	public int updateBoard(BoardVo boardVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("board.updateBoard",boardVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+		return session.update("board.updateBoard",boardVo);
 	}
 
 	@Override
 	public int insertBoard(BoardVo boardVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int insertCnt = session.insert("board.insertBoard",boardVo);
-	    session.commit();
-		session.close();
-		return insertCnt;
+		return session.insert("board.insertBoard",boardVo);
 	}
-
 }

@@ -2,56 +2,52 @@ package board.comment.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import board.comment.model.CommentVo;
-import board.mybatis.SqlMapSessionFactory;
-
+@Repository("commentDao")
 public class CommentDao implements CommentDaoInf {
 
-	private SqlSessionFactory sqlSessionFactory = SqlMapSessionFactory.getSqlSessionFactory();
 
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
+	
 	@Override
 	public List<CommentVo> getAllComments(int w_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<CommentVo> commentList = session.selectList("comment.getAllComments",w_id);
-		session.close();
-		return commentList;
+		
+		return session.selectList("comment.getAllComments",w_id);
+		
 	}
 
 	@Override
 	public int getCountComments(int w_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		int commentCnt = session.selectOne("comment.getCountComments",w_id);
-		session.close();
-		return commentCnt;
+		
+		return session.selectOne("comment.getCountComments",w_id);
+	
 	}
 	
 	@Override
 	public CommentVo getCommentById(int c_id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		CommentVo commentVo = session.selectOne("comment.getCommentById",c_id);
-		session.close();
-		return commentVo;
+		
+		return session.selectOne("comment.getCommentById",c_id);
+	
 	}
 
 	@Override
 	public int updateComment(CommentVo commentVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int updateCnt = session.update("comment.updateComment",commentVo);
-	    session.commit();
-		session.close();
-		return updateCnt;
+			
+		return session.update("comment.updateComment",commentVo);
+
 	}
 
 	@Override
 	public int insertComment(CommentVo commentVo) {
-		SqlSession session = sqlSessionFactory.openSession();	
-	    int insertCnt = session.insert("comment.insertComment",commentVo);
-	    session.commit();
-		session.close();
-		return insertCnt;
+			
+		return session.insert("comment.insertComment",commentVo);
+
 	}
 
 

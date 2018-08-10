@@ -2,6 +2,7 @@ package board.login;
 
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import board.interceptor.LoginInterceptor;
+import board.student.dao.StudentDaoInf;
 import board.student.model.StudentVo;
 import board.student.service.StudentService;
 import board.student.service.StudentServiceInf;
@@ -24,8 +26,10 @@ public class LoginController {
 
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	StudentServiceInf studentService = new StudentService();
-
+	@Resource(name="studentService")
+	private StudentServiceInf studentService;
+	
+	
 	@RequestMapping("/view")
 	public String hello(Model model){ 
 		return "login/login";

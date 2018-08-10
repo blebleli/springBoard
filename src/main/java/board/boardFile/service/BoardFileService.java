@@ -2,15 +2,22 @@ package board.boardFile.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import board.boardFile.dao.BoardFileDao;
+import board.boardFile.dao.BoardFileDaoInf;
 import board.boardFile.model.BoardFileVo;
+import board.student.dao.StudentDaoInf;
 
 @Service("fileService")
 public class BoardFileService implements BoardFileServiceInf {
 
-	BoardFileDao boardFileDao = new BoardFileDao();
+
+	@Resource(name="boardFileDao")
+	private BoardFileDaoInf boardFileDao;
+	
 	
 	@Override
 	public List<BoardFileVo> getAllFiles(int w_id) {

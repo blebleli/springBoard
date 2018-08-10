@@ -2,15 +2,21 @@ package board.comment.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import board.boardFile.dao.BoardFileDaoInf;
 import board.comment.dao.CommentDao;
+import board.comment.dao.CommentDaoInf;
 import board.comment.model.CommentVo;
 
 @Service("commentService")
 public class CommentService implements CommentServiceInf {
 
-	CommentDao commentDao = new CommentDao();
+
+	@Resource(name="commentDao")
+	private CommentDaoInf commentDao;
 	
 	
 	@Override
