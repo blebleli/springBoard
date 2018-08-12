@@ -8,12 +8,15 @@
 
 	<!-- 게시글 생성 -->
 	<insert id="insertWrite" parameterType="writeVo">
+		  <selectKey keyProperty="w_id" resultType="int" order="BEFORE">
+		    select board_w_seq.nextval FROM DUAL
+		  </selectKey>
 
 		INSERT INTO BOARD_W (W_ID,W_PARENT,STD_ID,B_ID
 				,W_TITLE,W_CONTENT,W_REGDT
 				,W_DELNY,W_VIEW,W_FILENUM)
 
-		VALUES ( board_w_seq.NEXTVAL,#{w_parent},#{std_id},#{b_id},
+		VALUES ( #{w_id},#{w_parent},#{std_id},#{b_id},
 				#{w_title},#{w_content},#{w_regdt},
 				'N',0,0)
 	</insert>
