@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 
 
@@ -42,24 +43,7 @@
 										$("#frm").submit();
 									}
 								}
-							});
-
-				//파일버튼추가 이벤트 
-				var fileAdd = $('#fileAdd');	
-					
-				fileAdd.on('click',function(){
-						var fileArr = $('input[name="files"]');
-						if(fileArr.length <5){
-					        var r= $('<input type="file" name="files"><br>');
-					        $("#filesDiv").append(r);
-						}else{
-							console.log('5개를 초과하였습니다.');
-							alert('5개까지 추가가능합니다.');
-						}
-				    });		
-				
-							
-							
+							})
 				});
 
 		// 필수값 Check
@@ -87,13 +71,10 @@
 
 		    } catch(e) {}
 		} 
-		
-
 
  
 	</script>
-	
-		<form action="/write/writeCreate" enctype="multipart/form-data" method="post" id="frm">
+		<form action="/write/writeCreate" method="post" id="frm">
 			<div class="form-horizontal">
 				<div class="col-sm-1">
 					<label class="control-label">제목</label>
@@ -103,10 +84,13 @@
 				</div>
 			</div>
 
+				
 			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width: 90%; height: 412px;"></textarea>
+
 
 			<div class="col-sm-11" style="text-align: center;">
 				<input type="hidden" name="b_id" value="${b_id }">
+				<input type="hidden" name="w_id" value="${w_id }">
 				<input type="hidden" name="w_parent" value="${w_parent }">
 		
 				<button class="btn btn-primary" type="submit" >등록</button>
@@ -115,19 +99,25 @@
 				<button type="button" class="btn btn-default"
 					onclick="location.href='writeList?b_id=${b_id}'">
 					돌아가기</button>
-			</div>
-				<hr>
-
-				<button id="fileAdd" type="button" class="btn btn-default btn-md">
-				  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 추가
-				</button>
-				<br>
 					
-				<!--<form id ="filesForm" action="/file/upload" enctype="multipart/form-data" method="post">   -->
-					<!--  <input type="file" name="uploadFile"><br>-->	
-					<!-- <input type="submit" value="전송"  class="btn btn-default">-->	
-				<div id="filesDiv">
-					<input type="file" class="custom-file-input" name="files"  ><br>
-				</div>	
+				<button type="button" class="btn btn-default" onclick="">첨부파일</button>
+			
+			</div>
 		</form>
+			<div>
+				<hr>
+				첨부파일 list
+				<form action="/file/upload" enctype="multipart/form-data" method="post">
+		
+					<!--  <input type="file" name="uploadFile"><br>-->
+					
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="file" name="files"><br>
+					<input type="submit" value="전송">	
+				</form>
+				<br>
+			</div>
 

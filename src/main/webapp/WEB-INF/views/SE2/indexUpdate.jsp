@@ -8,12 +8,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>		
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Smart Editor</title>
 
 <%
 request.setCharacterEncoding("utf-8");
 %>
 
-<script src="/SE2/js/HuskyEZCreator.js"></script>
+</head>
+
+<body>
 
 	<script>
 		var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
@@ -106,3 +112,5 @@ request.setCharacterEncoding("utf-8");
 
 			</div>
 		</form>
+</body>
+</html>

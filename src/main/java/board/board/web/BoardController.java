@@ -29,7 +29,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("/boardList")
-	 public String boardView(Model model) {
+	 public String boardView() {
 		
 		 return "boardList";
 	 }
