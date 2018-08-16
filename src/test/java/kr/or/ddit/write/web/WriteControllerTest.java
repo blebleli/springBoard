@@ -1,4 +1,7 @@
-package board.write.web;
+package kr.or.ddit.write.web;
+
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,124 +11,110 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import board.board.model.BoardVo;
-import board.board.service.BoardServiceInf;
 import board.boardFile.model.BoardFileVo;
-import board.boardFile.service.BoardFileServiceInf;
 import board.boardFile.web.FileUtil;
 import board.student.model.StudentVo;
 import board.write.model.WriteVo;
-import board.write.service.WriteServiceInf;
 
-@RequestMapping("/write")
-@Controller("writeController")
-@SessionAttributes("studentVo")
-public class writeController {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:kr/or/ddit/config/spring/root-context.xml",
+								"classpath:kr/or/ddit/config/spring/servlet-context.xml",
+								 "classpath:kr/or/ddit/config/spring/datasource.xml"})
+@WebAppConfiguration
+public class WriteControllerTest {
 
-	private Logger logger = LoggerFactory.getLogger(writeController.class);
-	
-	
-	@Resource(name="writeService")
-	private WriteServiceInf writeService;
-	
-	@Resource(name="boardService")
-	private BoardServiceInf boardService;
-	
-	@Resource(name="fileService")
-	private BoardFileServiceInf fileService;
-	
-	@RequestMapping("/writeList")
-	 public String writeView(@RequestParam Map<String,String> param, Model model) {
+	//스프링 모든 요청은 dispatcherServlet이 처리 
+	@Autowired
+	private WebApplicationContext context;
 
-		//선택한 게시판번호 가져와 name set
-		int b_id = Integer.parseInt(param.get("b_id"));
-		BoardVo boardVo= boardService.getBoardById(b_id);
+	private MockMvc mvc;
 	
-		//pagenation
-		String pageStr = param.get("page");
-		int page = pageStr == null? 1 : Integer.parseInt(pageStr);
-		String pageSizeStr = param.get("pageSize");
-		int pageSize = pageSizeStr == null? 10 : Integer.parseInt(pageSizeStr);	
-		
-		Map<String, Integer> paramMap = new HashMap<String, Integer>();
-		paramMap.put("page", page);
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("b_id", b_id);
-		
-		//답글형태 글목록
-		Map<String, Object>resultMap = writeService.getWriteView(paramMap);
-		
-		//게시판 페이지 리스트
-		List<WriteVo> writeList = (List<WriteVo>)resultMap.get("pageList");
-		
-		//페이지 네비게이션 문자열
-		String pageNavi = (String) resultMap.get("pageNavi");
-		
-		model.addAttribute("b_id", b_id);
-		model.addAttribute("boardName",boardVo.getB_name());
-		model.addAttribute("writeList",writeList);
-		model.addAttribute("pageNavi", pageNavi);
-
-		 return "writeList";
-	 }
-
-	@RequestMapping("/writeDetail")
-	 public String writeDetail(@RequestParam Map<String,String> param, Model model) {
-	
-		int w_id = Integer.parseInt(param.get("w_id"));
-		
-		WriteVo writeVo = writeService.getWriteById(w_id);
-	
-		List<BoardFileVo> fileList = fileService.getAllFiles(w_id);
-		
-		model.addAttribute("writeVo", writeVo);
-		model.addAttribute("fileList", fileList);
-		
-		return "writeDetail";
+	@Before
+	public void setup(){
+		mvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
-		
 	
-	@RequestMapping("/writeNew")
-	 public String newWrite(@RequestParam Map<String,String> param, Model model) {
-		int b_id = Integer.parseInt(param.get("b_id")); // 해당 게시판에 하기 위함
-		model.addAttribute("b_id", b_id);
+	@Test
+	public void writeViewTest() throws Exception {
 		
-		if (param.get("w_parent")!=null)
-		model.addAttribute("w_parent", Integer.parseInt(param.get("w_parent")));
 		
-		return "writeNew"; // index 페이지로
+		MvcResult result = mvc.perform(get("/write/writeList")
+									   .param("b_id", "12")
+									   .param("page", "1")
+									   .param("pageSize", "10")).andReturn();
+		
+		ModelAndView mav = result.getModelAndView();
+		
+		String boardVo=  (String)mav.getModel().get("boardName");
+		
+		assertEquals("test입니다",boardVo);
+
+	}
+
+	
+	@Test
+	public void writeDetailTest() throws Exception {
+		
+		MvcResult result = mvc.perform(get("/write/writeDetail")
+									   .param("w_id", "1")).andReturn();
+		
+		ModelAndView mav = result.getModelAndView();
+		
+		WriteVo writeVo=  (WriteVo) mav.getModel().get("writeVo");
+
+		assertEquals("수정 junit test",writeVo.getW_title());
+
+	}
+	
+	@Test
+	 public void newWriteTest() throws Exception {
+		MvcResult result = mvc.perform(get("/write/writeNew")
+				   			  .param("b_id", "1")).andReturn();
+
+		ModelAndView mav = result.getModelAndView();
+
+		assertEquals("writeNew", mav.getViewName());
 	}
 	
 	
-	@RequestMapping("/updateIndex")
-	 public String updateWrite(@RequestParam Map<String,String> param, Model model) {
 	
-		WriteVo writeVo = 
-		writeService.getWriteById(Integer.parseInt(param.get("w_id")));
-		
-		model.addAttribute("b_id", writeVo.getB_id());
-		model.addAttribute("writeVo", writeVo);
-		
-		return "writeUpdate"; //update index 페이지로
+	@Test
+	 public void updateWrite() throws Exception {
+		MvcResult result = mvc.perform(get("/write/updateIndex")
+				   			  .param("w_id", "1")).andReturn();
+
+		ModelAndView mav = result.getModelAndView();
+
+		assertEquals("writeUpdate", mav.getViewName());
+	
+		int b_id=  (int) mav.getModel().get("b_id");
+
+		assertEquals(3,b_id);
 	}
 	
+	/*
 	@RequestMapping("/writeDelete")
 	 public String writeDelete(@RequestParam Map<String,String> param, 
 			 				   @ModelAttribute StudentVo vo,
@@ -303,6 +292,5 @@ public class writeController {
 		model.addAttribute("fileName", fileName);
 		return "fileDownloadView";
 	}
-
-	
+	*/
 }

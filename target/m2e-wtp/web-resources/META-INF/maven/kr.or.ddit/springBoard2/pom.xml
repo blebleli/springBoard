@@ -221,6 +221,19 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<!-- 0816 el 관련 임시 -->
+	<dependency>
+   <groupId>javax.el</groupId>
+   <artifactId>javax.el-api</artifactId>
+   <version>2.2.4</version>
+	</dependency>
+	<dependency>
+	   <groupId>org.glassfish.web</groupId>
+	   <artifactId>javax.el</artifactId>
+	   <version>2.2.4</version>
+	</dependency>
+		
 
 	</dependencies>
 

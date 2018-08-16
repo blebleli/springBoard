@@ -33,7 +33,7 @@
 
 <script>
 function gotoDetailView(w_id){
-		location.href="/write/writeDetail?&w_id="+w_id;
+		location.href="/write/writeDetail?w_id="+w_id;
 }
 
 </script>

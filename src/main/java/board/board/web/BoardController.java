@@ -48,7 +48,7 @@ public class BoardController {
 		System.out.println("BoardCreateServlet boardVo======>"+boardVo);
 		
 		// insert
-		//boardService.insertBoard(boardVo);
+		boardService.insertBoard(boardVo);
 		 return "redirect:boardList"; //url로 redirect 하는 방법도 있다.
 	 }
 	
@@ -64,9 +64,9 @@ public class BoardController {
 		System.out.println("BoardUpdateServlet boardVo======>"+boardVo);
 	
 		//update
-		//boardService.updateBoard(boardVo);
+		boardService.updateBoard(boardVo);
 		 return "redirect:boardList"; 
 		 
 	 }
-	
+
 }

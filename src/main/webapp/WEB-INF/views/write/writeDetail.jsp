@@ -53,6 +53,7 @@ $(document).ready(function() {
     	
 		var element = $('input[name=w_id]') ;
 		var w_id = element.val();
+		var c_cmt = $("#c_cmt").val();
 	
  		$.ajax({
 			url : "/comment/commentList",						//"/comment/commentList.jsp",
@@ -68,24 +69,25 @@ $(document).ready(function() {
 	
 	
      	$("#btnCreateCmt").on("click",function(){
-	
+	  
+    		var c_cmt = $('textarea[id=c_cmt]').val();
+     		
+     		
 			$.ajax({
 			url : "/comment/commentCreate",						//"/comment/commentList.jsp",
 			method : "POST",
-			contentType : "application/json; charset=utf-8",	//json 전송을 알려주는 contentType
+			//contentType : "application/json; charset=utf-8",	//json 전송을 알려주는 contentType
 			dataType : "html",									//server로 부터 받을 data type
-			data : {"w_id" : "50"},								//전송할 parameters
+			data : {"w_id" : w_id,
+					"c_cmt" : c_cmt	},								//전송할 parameters
 			success : function(data){  //callback 출력
 			 	//console.log(data);
 				$("#screen").empty();
 			 	$("#screen").html(data);
 			}
-	});
-})
-	
-	
-	
-	
+		});
+	})
+
 })
 	
 </script>
@@ -133,30 +135,27 @@ $(document).ready(function() {
 
 			<!-- <button class="btn btn-primary" type="button" onclick="submitContents(this)">답글</button> -->
 
-			<form action="/write/writeUpdate" method="post" id="frmUpdate">
-				<input type="hidden" name="w_id" value="${writeVo.w_id}"> <input
-					type="hidden" name="b_id" value="${writeVo.b_id}"> <input
-					type="hidden" name="w_parent" value="${writeVo.w_id}"> <input
-					type="hidden" name="w_title" value="${writeVo.w_title}">
+			<form action="/write/updateIndex" method="post" id="frmUpdate">
+				 <input type="hidden" name="w_id" value="${writeVo.w_id}"> 
+				 <input type="hidden" name="b_id" value="${writeVo.b_id}"> 
+				 <input type="hidden" name="w_parent" value="${writeVo.w_id}"> 
+				 <input type="hidden" name="w_title" value="${writeVo.w_title}">
 				<%-- 	<input type="hidden" name="w_content" value="${writeVo.w_content.replace("\"", "'")}">	 --%>
-				<button type="button" class="btn btn-default"
-					onclick="location.href='writeUpdate?w_id=${writeVo.w_id}'">수정</button>
+				<button type="submit" class="btn btn-default">수정</button>
+					<!--onclick="location.href='writeUpdate?w_id=${writeVo.w_id}'">수정</button>  -->
 
 			</form>
 			<c:set value="${studentVo.std_id}" var="loginStd" />
 			<c:if test="${loginStd eq writeVo.std_id}" var="result">
-				<form action="/writeDelete" method="post" id="frmDelete">
-					<input type="hidden" name="w_id" value="${writeVo.w_id}"> <input
-						type="hidden" name="b_id" value="${writeVo.b_id}">
+				<form action="/write/writeDelete" method="post" id="frmDelete">
+					<input type="hidden" name="w_id" value="${writeVo.w_id}"> 
+					<input type="hidden" name="b_id" value="${writeVo.b_id}">
 					<button type="submit" class="btn btn-default">삭제</button>
 				</form>
 			</c:if>
 		</div>
-
-		<!-- 댓글 리스트 필요------------------------------------------------------>
-
+		<!-- 댓글 리스트 ------------------------------------------------------>
 		<div id="screen" class="row col-md-12">
-
 		</div>
 
 	</div>
@@ -166,26 +165,29 @@ $(document).ready(function() {
 		style="padding: 15px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd">
 		첨부파일 List
 		<c:forEach items="${fileList }" var="item" varStatus="i">
-			<a href="/fileDownloadView"> <c:out value="${item.f_name}" />
+			<a href="/write/fileDown?fileName=${item.f_name}"> <c:out value="${item.f_name}" />
 			</a>
-			<input type="hidden" name="f_id" value="${item.f_id}">
-			<input type="hidden" name="b_id" value="${writeVo.b_id}">
-			<input type="hidden" name="w_id" value="${writeVo.w_id}">
+<%-- 			<input type="hidden" name="f_id" value="${item.f_id}"> --%>
+			<input type="hidden" name="fileName" value="${item.f_name}">
+<%-- 			<input type="hidden" name="b_id" value="${writeVo.b_id}">
+			<input type="hidden" name="w_id" value="${writeVo.w_id}"> --%>
 		</c:forEach>
 	</div>
 
 	<!-- 첨부파일 -->
 
 	<!-- 댓글 -->
-	<form id="createCmt" action="/comment/commentCreate" method="post">
+<!-- <form id="createCmt" action="/comment/commentCreate" method="post"> -->	
 		<div>
-			<textarea class="form-control col-md-12" rows="3" name="c_cmt"></textarea>
-			<input type="hidden" name="b_id" value="${writeVo.b_id}"> <input
-				type="hidden" name="w_id" value="${writeVo.w_id}">
+			<textarea class="form-control col-md-12" rows="3" id="c_cmt" name="c_cmt"></textarea>
+			
+ 		<input type="hidden" name="b_id" value="${writeVo.b_id}"> 
+		<input type="hidden" id="w_id" name="w_id" value="${writeVo.w_id}">
+			
 			<button id="btnCreateCmt" type="button"
 				class="btn btn-primary col-md-12">댓글등록</button>
 		</div>
-	</form>
+
 
 
 

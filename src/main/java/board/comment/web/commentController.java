@@ -43,14 +43,18 @@ public class commentController {
 	@ResponseBody
 	 public ModelAndView commentCreate(@RequestParam Map<String,String> param, Model model, HttpSession session) {
 	
+		System.out.println("**CommentCreateServlet commentVo===============================");
 		//!Integer.parseInt(param.get("w_id")));---------------------------------------------------------------
-		
-		//request.setCharacterEncoding("utf-8");
+
 		StudentVo studentVo = (StudentVo)session.getAttribute("studentVo");
-		System.out.println("CommentCreateServlet u_id======>"+studentVo.getStd_id());
-		
+
 		//파라미터 확인
-		int w_id = 50; //Integer.parseInt(param.get("w_id"));
+		int w_id = Integer.parseInt(param.get("w_id"));
+		String c_c = (param.get("c_cmt"));
+		System.out.println("CommentCreateServlet commentVo======>"+w_id);
+		System.out.println("CommentCreateServlet commentVo======>"+c_c);
+		
+		
 		
 		CommentVo commentVo = new CommentVo();
 		//파라미터로 받은 값을 vo에 설정
@@ -61,7 +65,7 @@ public class commentController {
 		System.out.println("CommentCreateServlet commentVo======>"+commentVo);
 		
 		//댓글 insert
-		//commentService.insertComment(commentVo);
+		commentService.insertComment(commentVo);
 		List<CommentVo> commentList = commentService.getAllComments(w_id);
 		
 		model.addAttribute("commentList",commentList);
@@ -77,7 +81,6 @@ public class commentController {
 		
 		int w_id = Integer.parseInt(param.get("w_id")); //  --comment만 반환파면 필요없다 --? 반환안되는 중
 		
-		
 		//댓글 번호
 		int c_id = Integer.parseInt(param.get("c_id"));
 
@@ -92,7 +95,7 @@ public class commentController {
 		System.out.println("commentDelete ==========>"+commentVo);
 	
 		//게시글 update
-		//commentService.updateComment(commentVo);
+		commentService.updateComment(commentVo);
 		
 		//게시글 조회 화면으로 
 		model.addAttribute("w_id", w_id);
