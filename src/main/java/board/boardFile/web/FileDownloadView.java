@@ -14,7 +14,6 @@ import org.springframework.web.servlet.View;
 
 public class FileDownloadView implements View{
 
-	
 	@Override
 	public String getContentType() {
 		return "application/octet-stream";

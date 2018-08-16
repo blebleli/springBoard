@@ -299,10 +299,11 @@ public class writeController {
 	}
 	
 	@RequestMapping("/fileDown")
-	public String fileDown(@RequestParam("fileName") String fileName, Model model){
+	public String fileDown(@RequestParam("fileName") String fileName,
+							@RequestParam("originalFileName") String originalFileName,
+							Model model){
 		model.addAttribute("fileName", fileName);
+		model.addAttribute("originalFileName", originalFileName);
 		return "fileDownloadView";
 	}
-
-	
 }
