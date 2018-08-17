@@ -10,6 +10,7 @@
 <%@ page import="java.io.InputStream"%>
 <%@ page import="java.io.OutputStream"%>
 <%
+
 	// 로컬경로에 파일 저장하기 ============================================
 	String sFileInfo = "";
 
@@ -24,6 +25,7 @@
 
 	// 파일 기본경로 _ 상세경로
 	String path = defaultPath + "upload" + File.separator;
+	//String path = defaultPath + application.getContextPath() + File.separator;
 
 	File file = new File(path);
 	if(!file.exists()) {
@@ -49,5 +51,6 @@
 	os.close();
 
 	sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/upload/"+realname;
+	//sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+application.getContextPath()+realname;
 	out.println(sFileInfo);
 %>
