@@ -22,30 +22,34 @@
 
 	// 파일 기본경로
 	String defaultPath = request.getServletContext().getRealPath("/");
-
 	// 파일 기본경로 _ 상세경로
 	String path = defaultPath + "upload" + File.separator;
 	//String path = defaultPath + application.getContextPath() + File.separator;
 
+	System.out.println("저장경로: " + path);
+	
 	File file = new File(path);
 	if(!file.exists()) {
 		file.mkdirs();
 	}
 
 	String realname = UUID.randomUUID().toString() + "." + ext;
-	InputStream is = request.getInputStream();
+	//InputStream is = request.getInputStream();
 	OutputStream os = new FileOutputStream(path + realname);
-	int numRead;
+	/*int numRead;
 
 	// 파일쓰기
 	byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 	while((numRead = is.read(b,0,b.length)) != -1) {
 		os.write(b,0,numRead);
+		System.out.println("읽은크기: " + numRead);
 	}
 
 	if(is != null) {
 		is.close();
-	}
+	}*/
+	byte[] b = (byte[])request.getAttribute("image");
+	os.write(b,0,b.length);
 
 	os.flush();
 	os.close();

@@ -334,7 +334,7 @@
     	var tempFile,
     		sUploadURL;
     	
-    	sUploadURL= '/file_uploader_html5.jsp'; 	//upload URL
+    	sUploadURL= '/write/imageUpload'; 	//upload URL
     	//TODO sUploadURL 앞에 /추가. spring 적용을 위함 
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
