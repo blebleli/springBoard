@@ -4,6 +4,7 @@
 --------------------------------------------------------------------------------%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 
@@ -40,8 +41,6 @@
 									}
 								}
 							});
-					
-					
 				//파일버튼추가 이벤트 
 				var fileAdd = $('#fileAdd');	
 					
@@ -84,25 +83,27 @@
 		
  
 	</script>
-	
-		<form action="/write/writeCreate" enctype="multipart/form-data" method="post" id="frm">
+			<form action="/write/writeUpdate" enctype="multipart/form-data" method="post" id="frm">
 			<div class="form-horizontal">
 				<div class="col-sm-1">
 					<label class="control-label">제목</label>
 				</div>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="w_title" name="w_title">
+					<input type="text" class="form-control" id="w_title" name="w_title" 
+					value="${writeVo.w_title}">
 				</div>
 			</div>
 
-			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width: 90%; height: 412px;"></textarea>
+			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width: 90%; height: 412px;">
+			${writeVo.w_content}
+			</textarea>
 
 			<div class="col-sm-11" style="text-align: center;">
 				<input type="hidden" name="b_id" value="${b_id }">
 				<input type="hidden" name="w_parent" value="${w_parent }">
-		
-				<button class="btn btn-primary" type="submit" >등록</button>
-		
+				<input type="hidden" name="w_id" value="${writeVo.w_id }">
+				
+				<input class="btn btn-primary" type="button" onclick="submitContents(this)" value="수정">
 	
 				<button type="button" class="btn btn-default"
 					onclick="location.href='writeList?b_id=${b_id}'">

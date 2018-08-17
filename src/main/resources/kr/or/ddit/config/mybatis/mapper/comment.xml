@@ -6,7 +6,8 @@
 
   <!-- 댓글 모두 조회 -->
   <select id="getAllComments" resultType="cmtVo">
-    SELECT * FROM BOARD_CMT
+    SELECT  * 
+    FROM BOARD_CMT
     WHERE W_ID=#{w_id}
     ORDER BY C_REGDT DESC
   </select>

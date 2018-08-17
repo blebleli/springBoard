@@ -36,11 +36,11 @@
 	</definition>
 	
 	<definition name="writeNew" extends="basicLayout"> 
-		<put-attribute name="content" value="/WEB-INF/views/SE2/index.jsp"/>	
+		<put-attribute name="content" value="/SE2/index.jsp"/>	
 	</definition>
 	
 	<definition name="writeUpdate" extends="basicLayout"> 
-		<put-attribute name="content" value="/WEB-INF/views/SE2/indexUpdate.jsp"/>	
+		<put-attribute name="content" value="/SE2/indexUpdate.jsp"/>	
 	</definition>
 	
 </tiles-definitions>

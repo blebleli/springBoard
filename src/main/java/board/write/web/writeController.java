@@ -2,6 +2,9 @@ package board.write.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +13,17 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -223,9 +226,8 @@ public class writeController {
 	
 		model.addAttribute("b_id", b_id);
 		
-		//writeList 뒤에 알아서 ?를 표시해준다 신기
-		return "writeList";
-		//return "redirect:writeList";
+		//writeList 뒤에 알아서 ?를 표시해준다
+		return "redirect:writeList";
 	}
 	
 	
@@ -306,4 +308,35 @@ public class writeController {
 		model.addAttribute("originalFileName", originalFileName);
 		return "fileDownloadView";
 	}
+	
+	
+	@RequestMapping("/imageUpload")
+	public String imageUpload(){
+		return "SE2/photo_uploader/file_uploader_html5";
+	}
+	
+
+	@RequestMapping("/imageDownload/{fileName}")
+	public void imageDownload(
+			@PathVariable("fileName") 
+			String fileName,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+
+		String defaultPath = request.getServletContext().getRealPath("/");
+
+		// 파일 기본경로 _ 상세경로
+		String path = defaultPath + "upload" + File.separator+fileName;
+		OutputStream os = response.getOutputStream();
+		byte[] b = Files.readAllBytes(Paths.get(path));
+		try {
+		   os.write(b, 0, b.length);
+		} catch (Exception excp) {
+		   //handle error
+		} finally {
+		    os.close();
+		}
+	}
+	
+	
 }

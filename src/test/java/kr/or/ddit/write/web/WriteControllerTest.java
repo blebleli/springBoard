@@ -1,17 +1,7 @@
 package kr.or.ddit.write.web;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,18 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import board.board.model.BoardVo;
-import board.boardFile.model.BoardFileVo;
-import board.boardFile.web.FileUtil;
 import board.student.model.StudentVo;
 import board.write.model.WriteVo;
 
@@ -114,33 +95,23 @@ public class WriteControllerTest {
 		assertEquals(3,b_id);
 	}
 	
-	/*
-	@RequestMapping("/writeDelete")
-	 public String writeDelete(@RequestParam Map<String,String> param, 
-			 				   @ModelAttribute StudentVo vo,
-			 				    Model model) {
+	
 
-		int b_id= Integer.parseInt(param.get("b_id"));
-		int w_id = Integer.parseInt(param.get("w_id"));
-		String w_delny = "Y";
+	@Test
+	 public void writeDelete() throws Exception {
+		MvcResult result = mvc.perform(get("/write/writeDelete")
+							  .param("b_id", "1")
+			 				  .param("w_id", "1")
+			 				  .param("std_id", "std_2")).andReturn();
+
+		ModelAndView mav = result.getModelAndView();
 	
-		WriteVo writeVo = new WriteVo();
-		writeVo.setW_delny(w_delny);
-		writeVo.setW_id(w_id);
-			
-		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
-	
-		//게시글 delete update
-		writeService.deleteWrite(writeVo);
-	
-		
-		model.addAttribute("b_id", b_id);
-	
-		return "redirect:writeList";
+		assertEquals("writeList", mav.getViewName());
+
 	}
 
 	
-	
+	/*
 	@RequestMapping("/writeCreate")
 	 public String writeCreate(@RequestParam Map<String,String> param, 
 			 
@@ -286,6 +257,8 @@ public class WriteControllerTest {
 		//writeList 뒤에 알아서 ?를 표시해준다 
 		return "redirect:writeList";
 	}
+	
+	
 	
 	@RequestMapping("/fileDown")
 	public String fileDown(@RequestParam("fileName") String fileName, Model model){

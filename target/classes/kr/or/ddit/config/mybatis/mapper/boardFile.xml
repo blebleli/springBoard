@@ -6,7 +6,7 @@
 
 	<!-- 해당 게시글 파일 모두 조회 -->
 	<select id="getAllFiles" resultType="fileVo">
-		SELECT *
+		SELECT  /*+ index(board_file  BOARD_FILE_IDX1) */ *
 		FROM BOARD_FILE
 		WHERE W_ID=#{w_id}
 	</select>
