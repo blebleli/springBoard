@@ -54,7 +54,7 @@ public class writeController {
 	@RequestMapping("/writeList")
 	 public String writeView(@RequestParam Map<String,String> param, Model model) {
 
-		//선택한 게시판번호 가져와 name set
+		//�꽑�깮�븳 寃뚯떆�뙋踰덊샇 媛��졇�� name set
 		int b_id = Integer.parseInt(param.get("b_id"));
 		BoardVo boardVo= boardService.getBoardById(b_id);
 	
@@ -69,13 +69,13 @@ public class writeController {
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("b_id", b_id);
 		
-		//답글형태 글목록
+		//�떟湲��삎�깭 湲�紐⑸줉
 		Map<String, Object>resultMap = writeService.getWriteView(paramMap);
 		
-		//게시판 페이지 리스트
+		//寃뚯떆�뙋 �럹�씠吏� 由ъ뒪�듃
 		List<WriteVo> writeList = (List<WriteVo>)resultMap.get("pageList");
 		
-		//페이지 네비게이션 문자열
+		//�럹�씠吏� �꽕鍮꾧쾶�씠�뀡 臾몄옄�뿴
 		String pageNavi = (String) resultMap.get("pageNavi");
 		
 		model.addAttribute("b_id", b_id);
@@ -104,13 +104,13 @@ public class writeController {
 	
 	@RequestMapping("/writeNew")
 	 public String newWrite(@RequestParam Map<String,String> param, Model model) {
-		int b_id = Integer.parseInt(param.get("b_id")); // 해당 게시판에 하기 위함
+		int b_id = Integer.parseInt(param.get("b_id")); // �빐�떦 寃뚯떆�뙋�뿉 �븯湲� �쐞�븿
 		model.addAttribute("b_id", b_id);
 		
 		if (param.get("w_parent")!=null)
 		model.addAttribute("w_parent", Integer.parseInt(param.get("w_parent")));
 		
-		return "writeNew"; // index 페이지로
+		return "writeNew"; // index �럹�씠吏�濡�
 	}
 	
 	
@@ -123,7 +123,7 @@ public class writeController {
 		model.addAttribute("b_id", writeVo.getB_id());
 		model.addAttribute("writeVo", writeVo);
 		
-		return "writeUpdate"; //update index 페이지로
+		return "writeUpdate"; //update index �럹�씠吏�濡�
 	}
 	
 	@RequestMapping("/writeDelete")
@@ -141,7 +141,7 @@ public class writeController {
 			
 		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
 	
-		//게시글 delete update
+		//寃뚯떆湲� delete update
 		writeService.deleteWrite(writeVo);
 	
 		
@@ -165,7 +165,7 @@ public class writeController {
 		
 		int b_id= Integer.parseInt(param.get("b_id"));
 		String content = request.getParameter("smarteditor");
-	    //--답글여부 check
+	    //--�떟湲��뿬遺� check
 		if (param.get("w_parent").equals("")) {writeVo.setW_parent(0); }
 		else{ writeVo.setW_parent(Integer.parseInt(param.get("w_parent"))); }
 		
@@ -177,10 +177,10 @@ public class writeController {
 
 		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
 		
-		//게시글 insert
+		//寃뚯떆湲� insert
 		writeService.insertWrite(writeVo);
 
-		//파일부분---------------------------------------------------------------------------
+		//�뙆�씪遺�遺�---------------------------------------------------------------------------
 		
 		
 		for (MultipartFile f: files.getFiles()) {
@@ -198,7 +198,7 @@ public class writeController {
 			
 			BoardFileVo boardFileVo = new BoardFileVo();
 			boardFileVo.setW_id(writeVo.getW_id());
-			System.out.println("파일업로드할때 w_id ------------------"+writeVo.getW_id());
+			System.out.println("�뙆�씪�뾽濡쒕뱶�븷�븣 w_id ------------------"+writeVo.getW_id());
 			boardFileVo.setStd_id(studentVo.getStd_id());
 			boardFileVo.setF_file(path);
 			boardFileVo.setF_path(uploadFile.getAbsolutePath());
@@ -223,7 +223,7 @@ public class writeController {
 	
 		model.addAttribute("b_id", b_id);
 		
-		//writeList 뒤에 알아서 ?를 표시해준다 신기
+		//writeList �뮘�뿉 �븣�븘�꽌 ?瑜� �몴�떆�빐以��떎 �떊湲�
 		return "writeList";
 		//return "redirect:writeList";
 	}
@@ -249,11 +249,11 @@ public class writeController {
 
 		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
 		
-		//게시글 update
+		//寃뚯떆湲� update
 		writeService.updateWrite(writeVo);
 
 		
-		//파일부분---------------------------------------------------------------------------
+		//�뙆�씪遺�遺�---------------------------------------------------------------------------
 		
 		
 		for (MultipartFile f: files.getFiles()) {
@@ -271,7 +271,7 @@ public class writeController {
 			
 			BoardFileVo boardFileVo = new BoardFileVo();
 			boardFileVo.setW_id(writeVo.getW_id());
-			System.out.println("파일업로드할때 w_id ------------------"+writeVo.getW_id());
+			System.out.println("�뙆�씪�뾽濡쒕뱶�븷�븣 w_id ------------------"+writeVo.getW_id());
 			boardFileVo.setStd_id(studentVo.getStd_id());
 			boardFileVo.setF_file(path);
 			boardFileVo.setF_path(uploadFile.getAbsolutePath());
@@ -294,7 +294,7 @@ public class writeController {
 	
 		model.addAttribute("b_id", b_id);
 		
-		//writeList 뒤에 알아서 ?를 표시해준다 
+		//writeList �뮘�뿉 �븣�븘�꽌 ?瑜� �몴�떆�빐以��떎 
 		return "redirect:writeList";
 	}
 	
@@ -306,4 +306,9 @@ public class writeController {
 		model.addAttribute("originalFileName", originalFileName);
 		return "fileDownloadView";
 	}
+	
+	@RequestMapping("/imageUpload")
+	public String fileDown(){
+		return "/SE2/photo_uploader/file_uploader_html5";
+	}	
 }
