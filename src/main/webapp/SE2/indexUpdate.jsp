@@ -45,18 +45,17 @@
 				var fileAdd = $('#fileAdd');	
 					
 				fileAdd.on('click',function(){
-						var fileArr = $('input[name="files"]');
-						if(fileArr.length <5){
+						var fileArr  = $('input[name="files"]');
+						var existArr = $('.existFile');
+											
+						if((fileArr.length+existArr.length) <5){
 					        var r= $('<input type="file" name="files"><br>');
 					        $("#filesDiv").append(r);
 						}else{
 							console.log('5개를 초과하였습니다.');
 							alert('5개까지 추가가능합니다.');
 						}
-				    });		
-				
-							
-							
+				    });					
 				});
 		// 필수값 Check
 		function validation() {
@@ -117,6 +116,13 @@
 				<br>
 
 				<div id="filesDiv">
-					<input type="file" class="custom-file-input" name="files"  ><br>
+			
+			<c:forEach items="${fileList }" var="item" varStatus="i">
+				<label class="existFile"><c:out value="${item.f_name}" /></label>
+				<br>	
+			</c:forEach>
+			
+				<input type="file" class="custom-file-input" name="files"  >
+				<br>
 				</div>	
 		</form>

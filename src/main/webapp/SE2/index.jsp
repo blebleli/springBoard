@@ -51,7 +51,6 @@
 					        var r= $('<input type="file" name="files"><br>');
 					        $("#filesDiv").append(r);
 						}else{
-							console.log('5개를 초과하였습니다.');
 							alert('5개까지 추가가능합니다.');
 						}
 				    });		
@@ -87,9 +86,7 @@
 	
 		<form action="/write/writeCreate" enctype="multipart/form-data" method="post" id="frm">
 			<div class="form-horizontal">
-				<div class="col-sm-1">
-					<label class="control-label">제목</label>
-				</div>
+				<div class="col-sm-1"><label class="control-label">제목</label></div>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="w_title" name="w_title">
 				</div>
@@ -99,17 +96,14 @@
 
 			<div class="col-sm-11" style="text-align: center;">
 				<input type="hidden" name="b_id" value="${b_id }">
-				<input type="hidden" name="w_parent" value="${w_parent }">
-		
+				<input type="hidden" name="w_parent" value="${w_parent }">		
 				<input class="btn btn-primary" type="button" onclick="submitContents(this)" value="등록">
-		
-	
+
 				<button type="button" class="btn btn-default"
 					onclick="location.href='writeList?b_id=${b_id}'">
 					돌아가기</button>
 			</div>
 				<hr>
-
 				<button id="fileAdd" type="button" class="btn btn-default btn-md">
 				  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 추가
 				</button>

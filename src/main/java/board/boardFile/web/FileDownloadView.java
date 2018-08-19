@@ -2,6 +2,9 @@ package board.boardFile.web;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -31,19 +34,28 @@ public class FileDownloadView implements View{
 		response.setContentType("application/octet-stream");
 
 		String file = FileUtil.fileUploadPath+ File.separator+fileName;
-	
-		//file 입출력을 위한 준비
-		ServletOutputStream sos = response.getOutputStream();
-
-		File f = new File(file);
-		FileInputStream fis = new FileInputStream(f);
-		byte[] b = new byte[512];
-		int len =0;
-		while((len = fis.read(b)) != -1 ){
-			sos.write(b, 0, len);
-		}
-		sos.close();
-		fis.close();
+//------------------------------		
+		
+		String file2 = "E://fileDown"+File.separator+originalFileName;
+		
+		Path from = Paths.get(file);
+		Path to = Paths.get(file2);
+		
+		Files.copy(from,to);
+//-------------------------------
+		
+//		//file 입출력을 위한 준비
+//		ServletOutputStream sos = response.getOutputStream();		
+//		
+//		File f = new File(file);
+//		FileInputStream fis = new FileInputStream(f);
+//		byte[] b = new byte[512];
+//		int len =0;
+//		while((len = fis.read(b)) != -1 ){
+//			sos.write(b, 0, len);
+//		}
+//		sos.close();
+//		fis.close();
 
 	}
 }

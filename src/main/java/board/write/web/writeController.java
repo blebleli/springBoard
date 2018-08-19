@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
@@ -108,6 +109,7 @@ public class writeController {
 	@RequestMapping("/writeNew")
 	 public String newWrite(@RequestParam Map<String,String> param, Model model) {
 		int b_id = Integer.parseInt(param.get("b_id")); // 해당 게시판에 하기 위함
+
 		model.addAttribute("b_id", b_id);
 		
 		if (param.get("w_parent")!=null)
@@ -120,9 +122,12 @@ public class writeController {
 	@RequestMapping("/updateIndex")
 	 public String updateWrite(@RequestParam Map<String,String> param, Model model) {
 	
-		WriteVo writeVo = 
-		writeService.getWriteById(Integer.parseInt(param.get("w_id")));
+		int w_id = Integer.parseInt(param.get("w_id"));
+		WriteVo writeVo = writeService.getWriteById(w_id);	
 		
+		List<BoardFileVo> fileList = fileService.getAllFiles(w_id);
+
+		model.addAttribute("fileList", fileList);	
 		model.addAttribute("b_id", writeVo.getB_id());
 		model.addAttribute("writeVo", writeVo);
 		
@@ -136,10 +141,9 @@ public class writeController {
 
 		int b_id= Integer.parseInt(param.get("b_id"));
 		int w_id = Integer.parseInt(param.get("w_id"));
-		String w_delny = "Y";
 	
 		WriteVo writeVo = new WriteVo();
-		writeVo.setW_delny(w_delny);
+		writeVo.setW_delny("Y");
 		writeVo.setW_id(w_id);
 			
 		System.out.println("WriteCreateServlet writeVo======>"+writeVo);
@@ -301,11 +305,14 @@ public class writeController {
 	}
 	
 	@RequestMapping("/fileDown")
-	public String fileDown(@RequestParam("fileName") String fileName,
-							@RequestParam("originalFileName") String originalFileName,
+	public String fileDown(@RequestParam("f_id") int f_id,
 							Model model){
-		model.addAttribute("fileName", fileName);
-		model.addAttribute("originalFileName", originalFileName);
+		BoardFileVo fileVo =  fileService.getFileById(f_id);
+		Path path = Paths.get(fileVo.getF_path());
+		
+		model.addAttribute("originalFileName",fileVo.getF_name());
+		model.addAttribute("fileName",path.getFileName().toString());
+		
 		return "fileDownloadView";
 	}
 	

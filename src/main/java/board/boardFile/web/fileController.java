@@ -31,71 +31,71 @@ import board.student.model.StudentVo;
 @Controller("fileController")
 public class fileController {
 
-	private Logger logger = LoggerFactory.getLogger(fileController.class);
-
-	
-	@Resource(name="fileService")
-	private BoardFileServiceInf fileService;
-
-	@RequestMapping("/upload")
-	public String multipartUpload(  @RequestPart("files")MultipartFile file,
-									BoardFileVo files,
-									MultipartHttpServletRequest request,
-									Model model,
-									@RequestParam Map<String,String> param
-								   ,@ModelAttribute StudentVo vo) throws IllegalStateException, IOException{
-
-		
-		for (MultipartFile f: files.getFiles()) {
-			logger.debug("{}","f.getOriginalFilename() : "+f.getOriginalFilename());
-		}
-
-		String path = FileUtil.fileUploadPath;
-
-		
-		for(MultipartFile f : files.getFiles()){
-			if (null != f && f.getSize()> 0) {
-			String fileName = UUID.randomUUID().toString();
-			File uploadFile = new File(path + File.separator +fileName);
-			f.transferTo(uploadFile);
-			
-			BoardFileVo boardFileVo = new BoardFileVo();
-			boardFileVo.setW_id(Integer.parseInt(param.get("w_id")));
-			boardFileVo.setStd_id(vo.getStd_id());
-			boardFileVo.setF_file(path);
-			boardFileVo.setF_path(uploadFile.getAbsolutePath());
-			boardFileVo.setF_name(fileName);
-			
-
-			fileService.insertFile(boardFileVo);
-			}
-		
-		}
-		
-		try {
-			request.getPart("files");
-			request.getParts();
-		} catch (IOException | ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-//		int w_id =0;
-//		if (param.get("w_id") == "") { w_id = 0; }
-//		else{ w_id = Integer.parseInt(param.get("w_id")); }
-		
-		model.addAttribute("w_id", 50); //Integer.parseInt(param.get("w_id")));
-
-		return "writeDetail";
-	}
-	
-	public String multipartDown(@RequestPart("files")MultipartFile file,
-								BoardFileVo files,
-								MultipartHttpServletRequest request,
-								Model model) throws IllegalStateException, IOException{
-
-		return "writeDetail";
-	}
-	
+//	private Logger logger = LoggerFactory.getLogger(fileController.class);
+//
+//	
+//	@Resource(name="fileService")
+//	private BoardFileServiceInf fileService;
+//
+//	@RequestMapping("/upload")
+//	public String multipartUpload(  @RequestPart("files")MultipartFile file,
+//									BoardFileVo files,
+//									MultipartHttpServletRequest request,
+//									Model model,
+//									@RequestParam Map<String,String> param
+//								   ,@ModelAttribute StudentVo vo) throws IllegalStateException, IOException{
+//
+//		
+//		for (MultipartFile f: files.getFiles()) {
+//			logger.debug("{}","f.getOriginalFilename() : "+f.getOriginalFilename());
+//		}
+//
+//		String path = FileUtil.fileUploadPath;
+//
+//		
+//		for(MultipartFile f : files.getFiles()){
+//			if (null != f && f.getSize()> 0) {
+//			String fileName = UUID.randomUUID().toString();
+//			File uploadFile = new File(path + File.separator +fileName);
+//			f.transferTo(uploadFile);
+//			
+//			BoardFileVo boardFileVo = new BoardFileVo();
+//			boardFileVo.setW_id(Integer.parseInt(param.get("w_id")));
+//			boardFileVo.setStd_id(vo.getStd_id());
+//			boardFileVo.setF_file(path);
+//			boardFileVo.setF_path(uploadFile.getAbsolutePath());
+//			boardFileVo.setF_name(fileName);
+//			
+//
+//			fileService.insertFile(boardFileVo);
+//			}
+//		
+//		}
+//		
+//		try {
+//			request.getPart("files");
+//			request.getParts();
+//		} catch (IOException | ServletException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+////		int w_id =0;
+////		if (param.get("w_id") == "") { w_id = 0; }
+////		else{ w_id = Integer.parseInt(param.get("w_id")); }
+//		
+//		model.addAttribute("w_id", 50); //Integer.parseInt(param.get("w_id")));
+//
+//		return "writeDetail";
+//	}
+//	
+//	public String multipartDown(@RequestPart("files")MultipartFile file,
+//								BoardFileVo files,
+//								MultipartHttpServletRequest request,
+//								Model model) throws IllegalStateException, IOException{
+//
+//		return "writeDetail";
+//	}
+//	
 
 }

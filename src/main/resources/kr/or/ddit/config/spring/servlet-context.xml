@@ -65,7 +65,7 @@
 
 
 	<!-- excelDownload view -->
-<!--	<bean id="excelDownloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView" />-->
+	<!--<bean id="excelDownloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView" />-->
 
 	<!-- fileDownload view -->
 	<bean id="fileDownloadView" class="board.boardFile.web.FileDownloadView" />
